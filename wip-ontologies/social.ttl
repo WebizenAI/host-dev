@@ -1,0 +1,699 @@
+@prefix social: <http://ns.webizen.org/social#/> .
+@prefix webizen: <http://www.w3.org/2002/07/webizen#> .
+@prefix dc11: <http://purl.org/dc/elements/1.1/> .
+@prefix wot: <http://xmlns.com/wot/0.1/> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix ns0: <http://www.w3.org/2003/06/sw-vocab-status/ns#> .
+@prefix schema: <http://schema.org/> .
+@prefix geo: <http://www.w3.org/2003/01/geo/wgs84_pos#> .
+@prefix dc: <http://purl.org/dc/terms/> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix skos: <http://www.w3.org/2004/02/skos/core#> .
+
+social:
+  a webizen:Ontology ;
+  dc11:title "a social-web vocabulary" ;
+  dc11:description "The Friend of a Friend (FOAF) RDF vocabulary, described using W3C RDF Schema and the Web Ontology Language." .
+
+wot:assurance a webizen:AnnotationProperty .
+wot:src_assurance a webizen:AnnotationProperty .
+<http://www.w3.org/2003/06/sw-vocab-status/ns#term_status> a webizen:AnnotationProperty .
+dc11:description a webizen:AnnotationProperty .
+dc11:title a webizen:AnnotationProperty .
+dc11:date a webizen:AnnotationProperty .
+rdfs:Class a webizen:Class .
+social:LabelProperty
+  a rdfs:Class, webizen:Class ;
+  ns0:term_status "unstable" ;
+  rdfs:label "Label Property" ;
+  rdfs:comment "A social:LabelProperty is any RDF property with texual values that serve as labels." ;
+  rdfs:isDefinedBy social: .
+
+social:Person
+  a rdfs:Class, webizen:Class ;
+  rdfs:label "Person" ;
+  rdfs:comment "A person." ;
+  ns0:term_status "stable" ;
+  webizen:equivalentClass schema:Person, <http://www.w3.org/2000/10/swap/pim/contact#Person> ;
+  rdfs:subClassOf social:Agent, geo:SpatialThing ;
+  rdfs:isDefinedBy social: ;
+  webizen:disjointWith social:Organization, social:Project .
+
+social:Agent
+  a webizen:Class, rdfs:Class ;
+  ns0:term_status "stable" ;
+  rdfs:label "Agent" ;
+  rdfs:comment "An agent (eg. Representing person, group, software or physical artifact)." ;
+  webizen:equivalentClass dc:Agent .
+
+geo:SpatialThing
+  a webizen:Class ;
+  rdfs:label "Spatial Thing" .
+
+social:Document
+  a rdfs:Class, webizen:Class ;
+  rdfs:label "Document" ;
+  rdfs:comment "A document." ;
+  ns0:term_status "stable" ;
+  webizen:equivalentClass schema:CreativeWork ;
+  rdfs:isDefinedBy social: ;
+  webizen:disjointWith social:Organization, social:Project .
+
+social:Organization
+  a rdfs:Class, webizen:Class ;
+  rdfs:label "Organization" ;
+  rdfs:comment "An organization." ;
+  ns0:term_status "stable" ;
+  rdfs:subClassOf social:Agent ;
+  rdfs:isDefinedBy social: ;
+  webizen:disjointWith social:Person, social:Document .
+
+social:Group
+  a rdfs:Class, webizen:Class ;
+  ns0:term_status "stable" ;
+  rdfs:label "Group" ;
+  rdfs:comment "A class of Agents." ;
+  rdfs:subClassOf social:Agent .
+
+social:Project
+  a rdfs:Class, webizen:Class ;
+  ns0:term_status "testing" ;
+  rdfs:label "Project" ;
+  rdfs:comment "A project (a collective endeavour of some kind)." ;
+  rdfs:isDefinedBy social: ;
+  webizen:disjointWith social:Person, social:Document .
+
+social:Image
+  a rdfs:Class, webizen:Class ;
+  ns0:term_status "stable" ;
+  rdfs:label "Image" ;
+  rdfs:comment "An image." ;
+  webizen:equivalentClass schema:ImageObject ;
+  rdfs:subClassOf social:Document ;
+  rdfs:isDefinedBy social: .
+
+social:PersonalProfileDocument
+  a rdfs:Class, webizen:Class ;
+  rdfs:label "PersonalProfileDocument" ;
+  rdfs:comment "A personal profile RDF document." ;
+  ns0:term_status "testing" ;
+  rdfs:subClassOf social:Document .
+
+social:OnlineAccount
+  a rdfs:Class, webizen:Class ;
+  ns0:term_status "testing" ;
+  rdfs:label "Online Account" ;
+  rdfs:comment "An online account." ;
+  rdfs:isDefinedBy social: ;
+  rdfs:subClassOf webizen:Thing .
+
+webizen:Thing rdfs:label "Thing" .
+social:OnlineGamingAccount
+  a rdfs:Class, webizen:Class ;
+  ns0:term_status "unstable" ;
+  rdfs:label "Online Gaming Account" ;
+  rdfs:comment "An online gaming account." ;
+  rdfs:subClassOf social:OnlineAccount ;
+  rdfs:isDefinedBy social: .
+
+social:OnlineEcommerceAccount
+  a rdfs:Class, webizen:Class ;
+  ns0:term_status "unstable" ;
+  rdfs:label "Online E-commerce Account" ;
+  rdfs:comment "An online e-commerce account." ;
+  rdfs:subClassOf social:OnlineAccount ;
+  rdfs:isDefinedBy social: .
+
+social:OnlineChatAccount
+  a rdfs:Class, webizen:Class ;
+  ns0:term_status "unstable" ;
+  rdfs:label "Online Chat Account" ;
+  rdfs:comment "An online chat account." ;
+  rdfs:subClassOf social:OnlineAccount ;
+  rdfs:isDefinedBy social: .
+
+social:mbox
+  a rdf:Property, webizen:InverseFunctionalProperty, webizen:ObjectProperty ;
+  ns0:term_status "stable" ;
+  rdfs:label "personal mailbox" ;
+  rdfs:comment "A  personal mailbox, ie. an Internet mailbox associated with exactly one owner, the first owner of this mailbox. This is a 'static inverse functional property', in that  there is (across time and change) at most one individual that ever has any particular value for social:mbox." ;
+  rdfs:domain social:Agent ;
+  rdfs:range webizen:Thing ;
+  rdfs:isDefinedBy social: .
+
+social:mbox_sha1sum
+  a rdf:Property, webizen:InverseFunctionalProperty, webizen:DatatypeProperty ;
+  ns0:term_status "testing" ;
+  rdfs:label "sha1sum of a personal mailbox URI name" ;
+  rdfs:comment "The sha1sum of the URI of an Internet mailbox associated with exactly one owner, the  first owner of the mailbox." ;
+  rdfs:domain social:Agent ;
+  rdfs:range rdfs:Literal ;
+  rdfs:isDefinedBy social: .
+
+social:gender
+  a rdf:Property, webizen:FunctionalProperty, webizen:DatatypeProperty ;
+  ns0:term_status "testing" ;
+  rdfs:label "gender" ;
+  rdfs:comment "The gender of this Agent (typically but not necessarily 'male' or 'female')." ;
+  rdfs:domain social:Agent ;
+  rdfs:range rdfs:Literal ;
+  rdfs:isDefinedBy social: .
+
+social:geekcode
+  a rdf:Property, webizen:DatatypeProperty ;
+  ns0:term_status "archaic" ;
+  rdfs:label "geekcode" ;
+  rdfs:comment "A textual geekcode for this person, see http://www.geekcode.com/geek.html" ;
+  rdfs:domain social:Person ;
+  rdfs:range rdfs:Literal ;
+  rdfs:isDefinedBy social: .
+
+social:dnaChecksum
+  a rdf:Property, webizen:DatatypeProperty ;
+  ns0:term_status "archaic" ;
+  rdfs:label "DNA checksum" ;
+  rdfs:comment "A checksum for the DNA of some thing. Joke." ;
+  rdfs:isDefinedBy social: ;
+  rdfs:range rdfs:Literal .
+
+social:sha1
+  a rdf:Property, webizen:DatatypeProperty ;
+  ns0:term_status "unstable" ;
+  rdfs:label "sha1sum (hex)" ;
+  rdfs:comment "A sha1sum hash, in hex." ;
+  rdfs:domain social:Document ;
+  rdfs:isDefinedBy social: .
+
+social:based_near
+  a rdf:Property, webizen:ObjectProperty ;
+  ns0:term_status "testing" ;
+  rdfs:label "based near" ;
+  rdfs:comment "A location that something is based near, for some broadly human notion of near." ;
+  rdfs:domain geo:SpatialThing ;
+  rdfs:range geo:SpatialThing ;
+  rdfs:isDefinedBy social: .
+
+social:title
+  a rdf:Property, webizen:DatatypeProperty ;
+  ns0:term_status "testing" ;
+  rdfs:label "title" ;
+  rdfs:comment "Title (Mr, Mrs, Ms, Dr. etc)" ;
+  rdfs:isDefinedBy social: .
+
+social:nick
+  a rdf:Property, webizen:DatatypeProperty ;
+  ns0:term_status "testing" ;
+  rdfs:label "nickname" ;
+  rdfs:comment "A short informal nickname characterising an agent (includes login identifiers, IRC and other chat nicknames)." ;
+  rdfs:isDefinedBy social: .
+
+social:jabberID
+  a rdf:Property, webizen:DatatypeProperty, webizen:InverseFunctionalProperty ;
+  ns0:term_status "testing" ;
+  rdfs:label "jabber ID" ;
+  rdfs:comment "A jabber ID for something." ;
+  rdfs:isDefinedBy social: ;
+  rdfs:domain social:Agent ;
+  rdfs:range rdfs:Literal .
+
+social:aimChatID
+  a rdf:Property, webizen:DatatypeProperty, webizen:InverseFunctionalProperty ;
+  ns0:term_status "testing" ;
+  rdfs:label "AIM chat ID" ;
+  rdfs:comment "An AIM chat ID" ;
+  rdfs:isDefinedBy social: ;
+  rdfs:subPropertyOf social:nick ;
+  rdfs:domain social:Agent ;
+  rdfs:range rdfs:Literal .
+
+social:skypeID
+  a rdf:Property, webizen:DatatypeProperty ;
+  ns0:term_status "testing" ;
+  rdfs:label "Skype ID" ;
+  rdfs:comment "A Skype ID" ;
+  rdfs:isDefinedBy social: ;
+  rdfs:subPropertyOf social:nick ;
+  rdfs:domain social:Agent ;
+  rdfs:range rdfs:Literal .
+
+social:icqChatID
+  a rdf:Property, webizen:DatatypeProperty, webizen:InverseFunctionalProperty ;
+  ns0:term_status "testing" ;
+  rdfs:label "ICQ chat ID" ;
+  rdfs:comment "An ICQ chat ID" ;
+  rdfs:isDefinedBy social: ;
+  rdfs:subPropertyOf social:nick ;
+  rdfs:domain social:Agent ;
+  rdfs:range rdfs:Literal .
+
+social:yahooChatID
+  a rdf:Property, webizen:DatatypeProperty, webizen:InverseFunctionalProperty ;
+  ns0:term_status "testing" ;
+  rdfs:label "Yahoo chat ID" ;
+  rdfs:comment "A Yahoo chat ID" ;
+  rdfs:isDefinedBy social: ;
+  rdfs:subPropertyOf social:nick ;
+  rdfs:domain social:Agent ;
+  rdfs:range rdfs:Literal .
+
+social:msnChatID
+  a rdf:Property, webizen:DatatypeProperty, webizen:InverseFunctionalProperty ;
+  ns0:term_status "testing" ;
+  rdfs:label "MSN chat ID" ;
+  rdfs:comment "An MSN chat ID" ;
+  rdfs:isDefinedBy social: ;
+  rdfs:subPropertyOf social:nick ;
+  rdfs:domain social:Agent ;
+  rdfs:range rdfs:Literal .
+
+social:name
+  a rdf:Property, webizen:DatatypeProperty ;
+  ns0:term_status "testing" ;
+  rdfs:label "name" ;
+  rdfs:comment "A name for some thing." ;
+  rdfs:domain webizen:Thing ;
+  rdfs:range rdfs:Literal ;
+  rdfs:isDefinedBy social: ;
+  rdfs:subPropertyOf rdfs:label .
+
+social:firstName
+  a rdf:Property, webizen:DatatypeProperty ;
+  ns0:term_status "testing" ;
+  rdfs:label "firstName" ;
+  rdfs:comment "The first name of a person." ;
+  rdfs:domain social:Person ;
+  rdfs:range rdfs:Literal ;
+  rdfs:isDefinedBy social: .
+
+social:lastName
+  a rdf:Property, webizen:DatatypeProperty ;
+  ns0:term_status "testing" ;
+  rdfs:label "lastName" ;
+  rdfs:comment "The last name of a person." ;
+  rdfs:domain social:Person ;
+  rdfs:range rdfs:Literal ;
+  rdfs:isDefinedBy social: .
+
+social:givenName
+  a rdf:Property, webizen:DatatypeProperty ;
+  ns0:term_status "testing" ;
+  rdfs:label "Given name" ;
+  rdfs:comment "The given name of some person." ;
+  rdfs:isDefinedBy social: .
+
+social:givenname
+  a rdf:Property, webizen:DatatypeProperty ;
+  ns0:term_status "archaic" ;
+  rdfs:label "Given name" ;
+  rdfs:comment "The given name of some person." ;
+  rdfs:isDefinedBy social: .
+
+social:surname
+  a rdf:Property, webizen:DatatypeProperty ;
+  ns0:term_status "archaic" ;
+  rdfs:label "Surname" ;
+  rdfs:comment "The surname of some person." ;
+  rdfs:domain social:Person ;
+  rdfs:range rdfs:Literal ;
+  rdfs:isDefinedBy social: .
+
+social:family_name
+  a rdf:Property, webizen:DatatypeProperty ;
+  ns0:term_status "archaic" ;
+  rdfs:label "family_name" ;
+  rdfs:comment "The family name of some person." ;
+  rdfs:domain social:Person ;
+  rdfs:range rdfs:Literal ;
+  rdfs:isDefinedBy social: .
+
+social:familyName
+  a rdf:Property, webizen:DatatypeProperty ;
+  ns0:term_status "testing" ;
+  rdfs:label "familyName" ;
+  rdfs:comment "The family name of some person." ;
+  rdfs:domain social:Person ;
+  rdfs:range rdfs:Literal ;
+  rdfs:isDefinedBy social: .
+
+social:phone
+  a rdf:Property, webizen:ObjectProperty ;
+  ns0:term_status "testing" ;
+  rdfs:label "phone" ;
+  rdfs:comment "A phone,  specified using fully qualified tel: URI scheme (refs: http://www.w3.org/Addressing/schemes.html#tel)." ;
+  rdfs:isDefinedBy social: .
+
+social:homepage
+  a rdf:Property, webizen:ObjectProperty, webizen:InverseFunctionalProperty ;
+  ns0:term_status "stable" ;
+  rdfs:label "homepage" ;
+  rdfs:comment "A homepage for some thing." ;
+  rdfs:subPropertyOf social:page, social:isPrimaryTopicOf ;
+  rdfs:domain webizen:Thing ;
+  rdfs:range social:Document ;
+  rdfs:isDefinedBy social: .
+
+social:weblog
+  a rdf:Property, webizen:ObjectProperty, webizen:InverseFunctionalProperty ;
+  ns0:term_status "stable" ;
+  rdfs:label "weblog" ;
+  rdfs:comment "A weblog of some thing (whether person, group, company etc.)." ;
+  rdfs:subPropertyOf social:page ;
+  rdfs:domain social:Agent ;
+  rdfs:range social:Document ;
+  rdfs:isDefinedBy social: .
+
+social:openid
+  a rdf:Property, webizen:ObjectProperty, webizen:InverseFunctionalProperty ;
+  ns0:term_status "testing" ;
+  rdfs:label "openid" ;
+  rdfs:comment "An OpenID for an Agent." ;
+  rdfs:subPropertyOf social:isPrimaryTopicOf ;
+  rdfs:domain social:Agent ;
+  rdfs:range social:Document ;
+  rdfs:isDefinedBy social: .
+
+social:tipjar
+  a rdf:Property, webizen:ObjectProperty ;
+  ns0:term_status "testing" ;
+  rdfs:label "tipjar" ;
+  rdfs:comment "A tipjar document for this agent, describing means for payment and reward." ;
+  rdfs:subPropertyOf social:page ;
+  rdfs:domain social:Agent ;
+  rdfs:range social:Document ;
+  rdfs:isDefinedBy social: .
+
+social:plan
+  a rdf:Property, webizen:DatatypeProperty ;
+  ns0:term_status "testing" ;
+  rdfs:label "plan" ;
+  rdfs:comment "A .plan comment, in the tradition of finger and '.plan' files." ;
+  rdfs:isDefinedBy social: ;
+  rdfs:domain social:Person ;
+  rdfs:range rdfs:Literal .
+
+social:made
+  a rdf:Property, webizen:ObjectProperty ;
+  ns0:term_status "stable" ;
+  rdfs:label "made" ;
+  rdfs:comment "Something that was made by this agent." ;
+  rdfs:domain social:Agent ;
+  rdfs:range webizen:Thing ;
+  rdfs:isDefinedBy social: ;
+  webizen:inverseOf social:maker .
+
+social:maker
+  a rdf:Property, webizen:ObjectProperty ;
+  ns0:term_status "stable" ;
+  rdfs:label "maker" ;
+  rdfs:comment "An agent that  made this thing." ;
+  webizen:equivalentProperty dc:creator ;
+  rdfs:domain webizen:Thing ;
+  rdfs:range social:Agent ;
+  rdfs:isDefinedBy social: ;
+  webizen:inverseOf social:made .
+
+social:img
+  a rdf:Property, webizen:ObjectProperty ;
+  ns0:term_status "testing" ;
+  rdfs:label "image" ;
+  rdfs:comment "An image that can be used to represent some thing (ie. those depictions which are particularly representative of something, eg. one's photo on a homepage)." ;
+  rdfs:domain social:Person ;
+  rdfs:range social:Image ;
+  rdfs:subPropertyOf social:depiction ;
+  rdfs:isDefinedBy social: .
+
+social:depiction
+  a rdf:Property, webizen:ObjectProperty ;
+  ns0:term_status "testing" ;
+  rdfs:label "depiction" ;
+  rdfs:comment "A depiction of some thing." ;
+  rdfs:domain webizen:Thing ;
+  rdfs:range social:Image ;
+  rdfs:isDefinedBy social: ;
+  webizen:inverseOf social:depicts .
+
+social:depicts
+  a rdf:Property, webizen:ObjectProperty ;
+  ns0:term_status "testing" ;
+  rdfs:label "depicts" ;
+  rdfs:comment "A thing depicted in this representation." ;
+  rdfs:range webizen:Thing ;
+  rdfs:domain social:Image ;
+  rdfs:isDefinedBy social: ;
+  webizen:inverseOf social:depiction .
+
+social:thumbnail
+  a rdf:Property, webizen:ObjectProperty ;
+  ns0:term_status "testing" ;
+  rdfs:label "thumbnail" ;
+  rdfs:comment "A derived thumbnail image." ;
+  rdfs:domain social:Image ;
+  rdfs:range social:Image ;
+  rdfs:isDefinedBy social: .
+
+social:myersBriggs
+  a rdf:Property, webizen:DatatypeProperty ;
+  ns0:term_status "testing" ;
+  rdfs:label "myersBriggs" ;
+  rdfs:comment "A Myers Briggs (MBTI) personality classification." ;
+  rdfs:domain social:Person ;
+  rdfs:range rdfs:Literal ;
+  rdfs:isDefinedBy social: .
+
+social:workplaceHomepage
+  a rdf:Property, webizen:ObjectProperty ;
+  ns0:term_status "testing" ;
+  rdfs:label "workplace homepage" ;
+  rdfs:comment "A workplace homepage of some person; the homepage of an organization they work for." ;
+  rdfs:domain social:Person ;
+  rdfs:range social:Document ;
+  rdfs:isDefinedBy social: .
+
+social:workInfoHomepage
+  a rdf:Property, webizen:ObjectProperty ;
+  ns0:term_status "testing" ;
+  rdfs:label "work info homepage" ;
+  rdfs:comment "A work info homepage of some person; a page about their work for some organization." ;
+  rdfs:domain social:Person ;
+  rdfs:range social:Document ;
+  rdfs:isDefinedBy social: .
+
+social:schoolHomepage
+  a rdf:Property, webizen:ObjectProperty ;
+  ns0:term_status "testing" ;
+  rdfs:label "schoolHomepage" ;
+  rdfs:comment "A homepage of a school attended by the person." ;
+  rdfs:domain social:Person ;
+  rdfs:range social:Document ;
+  rdfs:isDefinedBy social: .
+
+social:knows
+  a rdf:Property, webizen:ObjectProperty ;
+  ns0:term_status "stable" ;
+  rdfs:label "knows" ;
+  rdfs:comment "A person known by this person (indicating some level of reciprocated interaction between the parties)." ;
+  rdfs:domain social:Person ;
+  rdfs:range social:Person ;
+  rdfs:isDefinedBy social: .
+
+social:interest
+  a rdf:Property, webizen:ObjectProperty ;
+  ns0:term_status "testing" ;
+  rdfs:label "interest" ;
+  rdfs:comment "A page about a topic of interest to this person." ;
+  rdfs:domain social:Agent ;
+  rdfs:range social:Document ;
+  rdfs:isDefinedBy social: .
+
+social:topic_interest
+  a rdf:Property, webizen:ObjectProperty ;
+  ns0:term_status "testing" ;
+  rdfs:label "topic_interest" ;
+  rdfs:comment "A thing of interest to this person." ;
+  rdfs:domain social:Agent ;
+  rdfs:range webizen:Thing ;
+  rdfs:isDefinedBy social: .
+
+social:publications
+  a rdf:Property, webizen:ObjectProperty ;
+  ns0:term_status "testing" ;
+  rdfs:label "publications" ;
+  rdfs:comment "A link to the publications of this person." ;
+  rdfs:domain social:Person ;
+  rdfs:range social:Document ;
+  rdfs:isDefinedBy social: .
+
+social:currentProject
+  a rdf:Property, webizen:ObjectProperty ;
+  ns0:term_status "testing" ;
+  rdfs:label "current project" ;
+  rdfs:comment "A current project this person works on." ;
+  rdfs:domain social:Person ;
+  rdfs:range webizen:Thing ;
+  rdfs:isDefinedBy social: .
+
+social:pastProject
+  a rdf:Property, webizen:ObjectProperty ;
+  ns0:term_status "testing" ;
+  rdfs:label "past project" ;
+  rdfs:comment "A project this person has previously worked on." ;
+  rdfs:domain social:Person ;
+  rdfs:range webizen:Thing ;
+  rdfs:isDefinedBy social: .
+
+social:fundedBy
+  a rdf:Property, webizen:ObjectProperty ;
+  ns0:term_status "archaic" ;
+  rdfs:label "funded by" ;
+  rdfs:comment "An organization funding a project or person." ;
+  rdfs:domain webizen:Thing ;
+  rdfs:range webizen:Thing ;
+  rdfs:isDefinedBy social: .
+
+social:logo
+  a rdf:Property, webizen:ObjectProperty, webizen:InverseFunctionalProperty ;
+  ns0:term_status "testing" ;
+  rdfs:label "logo" ;
+  rdfs:comment "A logo representing some thing." ;
+  rdfs:domain webizen:Thing ;
+  rdfs:range webizen:Thing ;
+  rdfs:isDefinedBy social: .
+
+social:topic
+  a rdf:Property, webizen:ObjectProperty ;
+  ns0:term_status "testing" ;
+  rdfs:label "topic" ;
+  rdfs:comment "A topic of some page or document." ;
+  rdfs:domain social:Document ;
+  rdfs:range webizen:Thing ;
+  webizen:inverseOf social:page ;
+  rdfs:isDefinedBy social: .
+
+social:primaryTopic
+  a rdf:Property, webizen:FunctionalProperty, webizen:ObjectProperty ;
+  ns0:term_status "stable" ;
+  rdfs:label "primary topic" ;
+  rdfs:comment "The primary topic of some page or document." ;
+  rdfs:domain social:Document ;
+  rdfs:range webizen:Thing ;
+  webizen:inverseOf social:isPrimaryTopicOf ;
+  rdfs:isDefinedBy social: .
+
+social:focus
+  a rdf:Property, webizen:ObjectProperty ;
+  ns0:term_status "testing" ;
+  rdfs:label "focus" ;
+  rdfs:comment "The underlying or 'focal' entity associated with some SKOS-described concept." ;
+  rdfs:domain skos:Concept ;
+  rdfs:range webizen:Thing ;
+  rdfs:isDefinedBy social: .
+
+skos:Concept rdfs:label "Concept" .
+social:isPrimaryTopicOf
+  a rdf:Property, webizen:InverseFunctionalProperty ;
+  ns0:term_status "stable" ;
+  rdfs:label "is primary topic of" ;
+  rdfs:comment "A document that this thing is the primary topic of." ;
+  rdfs:subPropertyOf social:page ;
+  webizen:inverseOf social:primaryTopic ;
+  rdfs:domain webizen:Thing ;
+  rdfs:range social:Document ;
+  rdfs:isDefinedBy social: .
+
+social:page
+  a rdf:Property, webizen:ObjectProperty ;
+  ns0:term_status "stable" ;
+  rdfs:label "page" ;
+  rdfs:comment "A page or document about this thing." ;
+  rdfs:domain webizen:Thing ;
+  rdfs:range social:Document ;
+  rdfs:isDefinedBy social: ;
+  webizen:inverseOf social:topic .
+
+social:theme
+  a rdf:Property, webizen:ObjectProperty ;
+  ns0:term_status "archaic" ;
+  rdfs:label "theme" ;
+  rdfs:comment "A theme." ;
+  rdfs:domain webizen:Thing ;
+  rdfs:range webizen:Thing ;
+  rdfs:isDefinedBy social: .
+
+social:account
+  a rdf:Property, webizen:ObjectProperty ;
+  ns0:term_status "testing" ;
+  rdfs:label "account" ;
+  rdfs:comment "Indicates an account held by this agent." ;
+  rdfs:domain social:Agent ;
+  rdfs:range social:OnlineAccount ;
+  rdfs:isDefinedBy social: .
+
+social:holdsAccount
+  a rdf:Property, webizen:ObjectProperty ;
+  ns0:term_status "archaic" ;
+  rdfs:label "account" ;
+  rdfs:comment "Indicates an account held by this agent." ;
+  rdfs:domain social:Agent ;
+  rdfs:range social:OnlineAccount ;
+  rdfs:isDefinedBy social: .
+
+social:accountServiceHomepage
+  a rdf:Property, webizen:ObjectProperty ;
+  ns0:term_status "testing" ;
+  rdfs:label "account service homepage" ;
+  rdfs:comment "Indicates a homepage of the service provide for this online account." ;
+  rdfs:domain social:OnlineAccount ;
+  rdfs:range social:Document ;
+  rdfs:isDefinedBy social: .
+
+social:accountName
+  a rdf:Property, webizen:DatatypeProperty ;
+  ns0:term_status "testing" ;
+  rdfs:label "account name" ;
+  rdfs:comment "Indicates the name (identifier) associated with this online account." ;
+  rdfs:domain social:OnlineAccount ;
+  rdfs:range rdfs:Literal ;
+  rdfs:isDefinedBy social: .
+
+social:member
+  a rdf:Property, webizen:ObjectProperty ;
+  ns0:term_status "stable" ;
+  rdfs:label "member" ;
+  rdfs:comment "Indicates a member of a Group" ;
+  rdfs:domain social:Group ;
+  rdfs:range social:Agent ;
+  rdfs:isDefinedBy social: .
+
+social:membershipClass
+  a rdf:Property, webizen:AnnotationProperty ;
+  ns0:term_status "unstable" ;
+  rdfs:label "membershipClass" ;
+  rdfs:comment "Indicates the class of individuals that are a member of a Group" ;
+  rdfs:isDefinedBy social: .
+
+social:birthday
+  a rdf:Property, webizen:FunctionalProperty, webizen:DatatypeProperty ;
+  ns0:term_status "unstable" ;
+  rdfs:label "birthday" ;
+  rdfs:comment "The birthday of this Agent, represented in mm-dd string form, eg. '12-31'." ;
+  rdfs:domain social:Agent ;
+  rdfs:range rdfs:Literal ;
+  rdfs:isDefinedBy social: .
+
+social:age
+  a rdf:Property, webizen:FunctionalProperty, webizen:DatatypeProperty ;
+  ns0:term_status "unstable" ;
+  rdfs:label "age" ;
+  rdfs:comment "The age in years of some agent." ;
+  rdfs:domain social:Agent ;
+  rdfs:range rdfs:Literal ;
+  rdfs:isDefinedBy social: .
+
+social:status
+  a rdf:Property, webizen:DatatypeProperty ;
+  ns0:term_status "unstable" ;
+  rdfs:label "status" ;
+  rdfs:comment "A string expressing what the user is happy for the general public (normally) to know about their current activity." ;
+  rdfs:domain social:Agent ;
+  rdfs:range rdfs:Literal ;
+  rdfs:isDefinedBy social: .

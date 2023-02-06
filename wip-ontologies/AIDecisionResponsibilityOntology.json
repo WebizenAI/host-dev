@@ -1,0 +1,89 @@
+{
+    "@context": {
+        "rdf": "http://www.w3.org/1999/02/22-rdf-syntax-ns#",
+        "rdfs": "http://www.w3.org/2000/01/rdf-schema#",
+        "xsd": "http://www.w3.org/2001/XMLSchema#",
+        "foaf": "http://xmlns.com/foaf/0.1/",
+        "org": "http://www.w3.org/ns/org#",
+        "ai": "http://example.com/ontology/ai#",
+        "name": "ai:name",
+        
+        "developer": {
+            "@id": "ai:developer",
+            "@type": "@id"
+        },
+        "owner": {
+            "@id": "ai:owner",
+            "@type": "@id"
+        },
+        "operator": {
+            "@id": "ai:operator",
+            "@type": "@id"
+        },
+        "decision-makingProcess": "ai:decision-makingProcess",
+        "performedAction": {
+            "@id": "ai:performedAction",
+            "@type": "@id"
+        },
+        "outcome": "ai:outcome",
+        "date": "ai:date",
+        "responsibility": {
+            "@id": "ai:responsibility",
+            "@type": "@id"
+        },
+        "level": "ai:level",
+        "entity": {
+            "@id": "ai:entity",
+            "@type": "@id"
+        },
+        "jurisdiction": "ai:jurisdiction",
+        "location": "ai:location",
+        "standardsMet": "ai:standardsMet",
+        "certifications": "ai:certifications",
+        "transparencyReports": {
+            "@id": "ai:transparencyReports",
+            "@type": "@id"
+        }
+    },
+    "@id": "ai:MyAI",
+    "@type": "ai:AI",
+    "name": "My AI System",
+    "developer": {
+        "@id": "foaf:JohnDoe",
+        "@type": "foaf:Person",
+        "name": "John Doe"
+    },
+    "owner": {
+        "@id": "org:AcmeInc",
+        "@type": "org:Organization",
+        "name": "Acme Inc."
+    },
+    "operator": {
+        "@id": "foaf:JaneSmith",
+        "@type": "foaf:Person",
+        "name": "Jane Smith"
+    },
+    "decision-makingProcess": "Explainable AI using Decision Trees",
+    "performedAction": {
+        "@id": "ai:Action1",
+        "@type": "ai:Action",
+        "name": "Decision Making",
+        "outcome": "Approve the loan",
+        "date": "2022-01-12T10:30:00Z"
+    },
+    "responsibility": {
+        "@id": "ai:responsibility1",
+        "@type": "ai:Responsibility",
+        "level": "Primary",
+        "entity": {
+            "@id": "org:AcmeInc",
+            "@type": "org:Organization",
+            "name": "Acme Inc."
+        }
+    },
+    "jurisdiction": "US",
+    "location": "New York",
+    "standardsMet": "ISO/IEC 27001:2013",
+    "certifications": "ISO/IEC 27001:2013 certified",
+    "transparencyReports": "http://example.com/reports/myaisystem"
+}

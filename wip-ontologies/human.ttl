@@ -1,0 +1,1730 @@
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix og: <http://ogp.me/ns#> .
+@prefix ogc: <http://ogp.me/ns/class#> .
+@prefix bibo: <http://purl.org/ontology/bibo/> .
+@prefix dc: <http://purl.org/dc/elements/1.1/> .
+@prefix foaf: <http://xmlns.com/foaf/0.1/> .
+@prefix geo: <http://www.w3.org/2003/01/geo/wgs84_pos#> .
+@prefix gr: <http://purl.org/goodrelations/v1#> .
+@prefix vcard: <http://www.w3.org/2006/vcard/ns#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix me: <http://www.webizen.org/Human#> .
+@prefix webizen: <http://www.webizen.org/webizen#> .
+@prefix ns0: <http://www.w3.org/2003/06/sw-vocab-status/ns#> .
+
+# Todo list...
+
+# Define Self
+
+# Define Personalities
+# Define PersonalitiesTypes
+# Define PersonalitiesParts
+# Define PersonalitiesPartsTypes
+# Define Personality Traits
+# Define Personality Attributes
+# Define Personality AttributesTypes
+# Define Personality AttributesParts
+# Define Personality AttributesPartsTypes
+
+# Define Names.
+# Define NameTypes
+# Define NameParts
+# legalNames
+# nickNames
+# aliases
+# maidenNames
+# pseudonyms
+# characterNames
+# stageNames
+# penNames
+# userNames
+
+# Define identifiers
+# Define identifierTypes
+# Define identifierParts
+# Define identifierServices
+# Define identifierServicesTypes
+# Define identifierServicesParts
+# Define identifierServicesPartsTypes
+
+# Define Mind
+# Define MindTypes
+
+# Consciousness
+# Define Consciousness
+# Define ConsciousExperience
+# Define ConsciousExperienceTypes
+# Define SubjectiveExperience
+# Define ObjectiveExperience
+
+# Qualia: These are the subjective experiences of an individual, such as the sensation of pain, the feeling of hunger, or the perception of colors.
+# Perception: This is the process of interpreting and making sense of sensory information.
+# Attention: This is the ability to focus on specific information while filtering out distractions.
+# Thought: This is the process of generating and manipulating mental representations of information.
+# Memory: This is the ability to store and retrieve information.
+# Emotion: This is the experience of feelings and affective states.
+# Motivation: This is the drive or desire to engage in specific behaviors or actions.
+# Self-awareness: This is the ability to have a sense of self and to be aware of one's own thoughts, feelings, and actions.
+# Volition: This is the power of making choices and decisions.
+# Language: This is the ability to use words and symbols to communicate with others.
+
+# define observer
+# define observerTypes
+# Define observations
+# Define observationTypes
+# Define observationArtifacts
+# Define observationArtifactTypes
+# Define observationArtifactParts
+
+
+# Temporal characteristics
+
+
+me:
+a webizen:Ontology ;
+
+dc:title "Human Ontology" ;
+dc:description "This ontology defines the characteristics of a Human being." ;
+dc:creator "Webizen.org" ;
+dc:contributor "Webizen.org" ;
+dc:subject "Human" ;
+dc:subject "Ontology" ;
+dc:subject "characteristics" ;
+dc:subject "Attributes" ;
+dc:subject "Webizen.org" ;
+dc:subject "Webizen" ;
+dc:subject "HumanCentricAI" ;
+dc:subject "HumanCentricDigitalIdentity" .
+
+
+me:Human
+  a webizen:Class, rdfs:Class ;
+  rdfs:isDefinedBy me: ;
+  ns0:term_status "stable" ;
+  rdfs:label "Agent" ;
+  rdfs:comment "An agent (eg. Representing person, group, software or physical artifact)." ;
+  dc:title "Human" ;
+  dc:description "A Human being." .
+
+## Define characteristics
+
+me:Characteristic
+  a rdfs:Class, webizen:Class ;
+  ns0:term_status "stable" ;
+  rdfs:label "Characteristic" ;
+  rdfs:comment "A human characteristic." ;
+  rdfs:subClassOf me:Human .
+
+
+me:name
+  a rdf:Property, webizen:DatatypeProperty ;
+  ns0:term_status "testing" ;
+  rdfs:label "name" ;
+  rdfs:comment "A name for some thing." ;
+  rdfs:domain me:Characteristic ;
+  rdfs:range rdfs:Literal ;
+  rdfs:isDefinedBy me: ;
+  rdfs:subPropertyOf rdfs:label .
+
+me:firstName
+  a rdf:Property, webizen:DatatypeProperty ;
+  ns0:term_status "testing" ;
+  rdfs:label "firstName" ;
+  rdfs:comment "The first name of a person." ;
+  rdfs:domain me:Characteristic ;
+  rdfs:range rdfs:Literal ;
+  rdfs:isDefinedBy me: .
+
+me:lastName
+  a rdf:Property, webizen:DatatypeProperty ;
+  ns0:term_status "testing" ;
+  rdfs:label "lastName" ;
+  rdfs:comment "The last name of a person." ;
+  rdfs:domain me:Characteristic ;
+  rdfs:range rdfs:Literal ;
+  rdfs:isDefinedBy me: .
+
+me:givenName
+  a rdf:Property, webizen:DatatypeProperty ;
+  ns0:term_status "testing" ;
+  rdfs:label "Given name" ;
+  rdfs:comment "The given name of some person." ;
+  rdfs:isDefinedBy  me: .
+
+me:givenname
+  a rdf:Property, webizen:DatatypeProperty ;
+  ns0:term_status "testing" ;
+  rdfs:label "Given name" ;
+  rdfs:comment "The given name of some person." ;
+  rdfs:isDefinedBy  me: .
+
+me:surname
+  a rdf:Property, webizen:DatatypeProperty ;
+  ns0:term_status "testing" ;
+  rdfs:label "Surname" ;
+  rdfs:comment "The surname of some person." ;
+  rdfs:domain me:Characteristic ;
+  rdfs:range rdfs:Literal ;
+  rdfs:isDefinedBy  me: .
+
+me:family_name
+  a rdf:Property, webizen:DatatypeProperty ;
+  ns0:term_status "testing" ;
+  rdfs:label "family_name" ;
+  rdfs:comment "The family name of some person." ;
+  rdfs:domain me:Characteristic ;
+  rdfs:range rdfs:Literal ;
+  rdfs:isDefinedBy me: .
+
+me:familyName
+  a rdf:Property, webizen:DatatypeProperty ;
+  ns0:term_status "testing" ;
+  rdfs:label "familyName" ;
+  rdfs:comment "The family name of some person." ;
+  rdfs:domain me:Characteristic ;
+  rdfs:range rdfs:Literal ;
+  rdfs:isDefinedBy me: .
+
+## Define LifeEvent
+
+me:life
+    a rdfs:Class, webizen:Class ;
+    rdfs:subClassOf me: ;
+    dc:title "Life" ;
+
+me:lifeEvent
+    a rdfs:Class, webizen:Class ;
+    rdfs:subClassOf me:life: ;
+    dc:title "LifeEvent" ;
+
+life:hasLifeEvent:
+    a rdf:Property ;
+    rdfs:domain event:lifeEvent ;
+    rdfs:range xsd:string ;
+    dc:title "hasLifeValue" .
+
+life:hasLifeEventValue:
+    a rdf:Property ;
+    rdfs:domain event:lifeEvent ;
+    rdfs:range xsd:string ;
+    dc:title "hasLifeEventValue" .
+
+life:hasLifeEventUnit:
+    a rdf:Property ;
+    rdfs:domain event:lifeEvent ;
+    rdfs:range xsd:string ;
+    dc:title "hasLifeEventUnit" .
+
+life:hasLifeEventType:
+    a rdf:Property ;
+    rdfs:domain event:lifeEvent ;
+    rdfs:range xsd:string ;
+    dc:title "hasLifeEventType" .
+
+life:hasLifeEventSource:
+    a rdf:Property ;
+    rdfs:domain event:lifeEvent ;
+    rdfs:range xsd:string ;
+    dc:title "hasLifeEventSource" .
+
+life:hasLifeEventDate:
+    a rdf:Property ;
+    rdfs:domain event:lifeEvent ;
+    rdfs:range xsd:dateTime ;
+    dc:title "hasLifeEventDate" .
+
+life:hasLifeEventLocation:
+    a rdf:Property ;
+    rdfs:domain event:lifeEvent ;
+    rdfs:range xsd:string ;
+    dc:title "hasLifeEventLocation" .
+
+life:hasLifeEventComment:
+    a rdf:Property ;
+    rdfs:domain event:lifeEvent ;
+    rdfs:range xsd:string ;
+    dc:title "hasLifeEventComment" .
+
+
+## Define Human Relationships
+
+relationship:
+    a rdfs:Class, webizen:Class ;
+    rdfs:subClassOf life: ;
+    dc:title "relationship" ;
+
+relationship:hasRelationship:
+    a rdf:Property ;
+    rdfs:domain Human:relationship ;
+    rdfs:range xsd:string ;
+    dc:title "hasRelationship" .
+
+relationship:hasRelationshipValue:
+    a rdf:Property ;
+    rdfs:domain Human:relationship ;
+    rdfs:range xsd:string ;
+    dc:title "hasRelationshipValue" .
+
+relationship:hasRelationshipUnit:
+    a rdf:Property ;
+    rdfs:domain Human:relationship ;
+    rdfs:range xsd:string ;
+    dc:title "hasRelationshipUnit" .
+
+relationship:hasRelationshipType:
+    a rdf:Property ;
+    rdfs:domain Human:relationship ;
+    rdfs:range xsd:string ;
+    dc:title "hasRelationshipType" .
+
+relationship:hasRelationshipSource:
+    a rdf:Property ;
+    rdfs:domain Human:relationship ;
+    rdfs:range xsd:string ;
+    dc:title "hasRelationshipSource" .
+
+relationship:hasRelationshipDate:
+    a rdf:Property ;
+    rdfs:domain Human:relationship ;
+    rdfs:range xsd:dateTime ;
+    dc:title "hasRelationshipDate" .
+
+relationship:hasRelationshipLocation:
+    a rdf:Property ;
+    rdfs:domain Human:relationship ;
+    rdfs:range xsd:string ;
+    dc:title "hasRelationshipLocation" .
+
+relationship:hasRelationshipComment:
+    a rdf:Property ;
+    rdfs:domain Human:relationship ;
+    rdfs:range xsd:string ;
+    dc:title "hasRelationshipComment" .
+
+relationship:hasRelationshipConfidence:
+    a rdf:Property ;
+    rdfs:domain Human:relationship ;
+    rdfs:range xsd:float ;
+    dc:title "hasRelationshipConfidence" .
+
+relationship:hasRelationshipConfidenceLevel:
+    a rdf:Property ;
+    rdfs:domain Human:relationship ;
+    rdfs:range xsd:string ;
+    dc:title "hasRelationshipConfidenceLevel" .
+
+relationship:hasRelationshipConfidenceSource:
+    a rdf:Property ;
+    rdfs:domain Human:relationship ;
+    rdfs:range xsd:string ;
+    dc:title "hasRelationshipConfidenceSource" .
+
+relationship:hasRelationshipConfidenceDate:
+    a rdf:Property ;
+    rdfs:domain Human:relationship ;
+    rdfs:range xsd:dateTime ;
+    dc:title "hasRelationshipConfidenceDate" .
+
+relationship:hasRelationshipConfidenceLocation:
+    a rdf:Property ;
+    rdfs:domain Human:relationship ;
+    rdfs:range xsd:string ;
+    dc:title "hasRelationshipConfidenceLocation" .
+
+relationship:hasRelationshipConfidenceComment:
+    a rdf:Property ;
+    rdfs:domain Human:relationship ;
+    rdfs:range xsd:string ;
+    dc:title "hasRelationshipConfidenceComment" .
+
+relationship:hasRelationshipConfidenceConfidence:
+    a rdf:Property ;
+    rdfs:domain Human:relationship ;
+    rdfs:range xsd:float ;
+    dc:title "hasRelationshipConfidenceConfidence" .
+
+relationship:hasRelationshipConfidenceConfidenceLevel:
+    a rdf:Property ;
+    rdfs:domain Human:relationship ;
+    rdfs:range xsd:string ;
+    dc:title "hasRelationshipConfidenceConfidenceLevel" .
+
+relationship:hasRelationshipConfidenceConfidenceSource:
+    a rdf:Property ;
+    rdfs:domain Human:relationship ;
+    rdfs:range xsd:string ;
+    dc:title "hasRelationshipConfidenceConfidenceSource" .
+
+relationship:hasRelationshipConfidenceConfidenceDate:
+    a rdf:Property ;
+    rdfs:domain Human:relationship ;
+    rdfs:range xsd:dateTime ;
+    dc:title "hasRelationshipConfidenceConfidenceDate" .
+
+relationship:hasRelationshipConfidenceConfidenceLocation:
+    a rdf:Property ;
+    rdfs:domain Human:relationship ;
+    rdfs:range xsd:string ;
+    dc:title "hasRelationshipConfidenceConfidenceLocation" .
+
+relationship:hasRelationshipConfidenceConfidenceComment:
+    a rdf:Property ;
+    rdfs:domain Human:relationship ;
+    rdfs:range xsd:string ;
+    dc:title "hasRelationshipConfidenceConfidenceComment" .
+
+## Define Belief
+
+belief:
+    a rdfs:Class, webizen:Class ;
+    rdfs:subClassOf Human: ;
+    dc:title "Belief" ;
+
+belief:hasBelief:
+    a rdf:Property ;
+    rdfs:domain Human:belief ;
+    rdfs:range xsd:string ;
+    dc:title "hasBelief" .
+
+belief:hasBeliefValue:
+    a rdf:Property ;
+    rdfs:domain Human:belief ;
+    rdfs:range xsd:string ;
+    dc:title "hasBeliefValue" .
+
+belief:hasBeliefUnit:
+    a rdf:Property ;
+    rdfs:domain Human:belief ;
+    rdfs:range xsd:string ;
+    dc:title "hasBeliefUnit" .
+
+belief:hasBeliefType:
+    a rdf:Property ;
+    rdfs:domain Human:belief ;
+    rdfs:range xsd:string ;
+    dc:title "hasBeliefType" .
+
+belief:hasBeliefSource:
+    a rdf:Property ;
+    rdfs:domain Human:belief ;
+    rdfs:range xsd:string ;
+    dc:title "hasBeliefSource" .
+
+belief:hasBeliefDate:
+    a rdf:Property ;
+    rdfs:domain Human:belief ;
+    rdfs:range xsd:dateTime ;
+    dc:title "hasBeliefDate" .
+
+belief:hasBeliefLocation:
+    a rdf:Property ;
+    rdfs:domain Human:belief ;
+    rdfs:range xsd:string ;
+    dc:title "hasBeliefLocation" .
+
+belief:hasBeliefComment:
+    a rdf:Property ;
+    rdfs:domain Human:belief ;
+    rdfs:range xsd:string ;
+    dc:title "hasBeliefComment" .
+
+belief:hasBeliefConfidence:
+    a rdf:Property ;
+    rdfs:domain Human:belief ;
+    rdfs:range xsd:float ;
+    dc:title "hasBeliefConfidence" .
+
+belief:hasBeliefConfidenceLevel:
+    a rdf:Property ;
+    rdfs:domain Human:belief ;
+    rdfs:range xsd:string ;
+    dc:title "hasBeliefConfidenceLevel" .
+
+belief:hasBeliefConfidenceSource:
+    a rdf:Property ;
+    rdfs:domain Human:belief ;
+    rdfs:range xsd:string ;
+    dc:title "hasBeliefConfidenceSource" .
+
+belief:hasBeliefConfidenceDate:
+    a rdf:Property ;
+    rdfs:domain Human:belief ;
+    rdfs:range xsd:dateTime ;
+    dc:title "hasBeliefConfidenceDate" .
+
+belief:hasBeliefConfidenceLocation:
+    a rdf:Property ;
+    rdfs:domain Human:belief ;
+    rdfs:range xsd:string ;
+    dc:title "hasBeliefConfidenceLocation" .
+
+belief:hasBeliefConfidenceComment:
+    a rdf:Property ;
+    rdfs:domain Human:belief ;
+    rdfs:range xsd:string ;
+    dc:title "hasBeliefConfidenceComment" .
+
+belief:hasBeliefConfidenceConfidence:
+    a rdf:Property ;
+    rdfs:domain Human:belief ;
+    rdfs:range xsd:float ;
+    dc:title "hasBeliefConfidenceConfidence" .
+
+belief:hasBeliefConfidenceConfidenceLevel:
+    a rdf:Property ;
+    rdfs:domain Human:belief ;
+    rdfs:range xsd:string ;
+    dc:title "hasBeliefConfidenceConfidenceLevel" .
+
+belief:hasBeliefConfidenceConfidenceSource:
+    a rdf:Property ;
+    rdfs:domain Human:belief ;
+    rdfs:range xsd:string ;
+    dc:title "hasBeliefConfidenceConfidenceSource" .
+
+belief:hasBeliefConfidenceConfidenceDate:
+    a rdf:Property ;
+    rdfs:domain Human:belief ;
+    rdfs:range xsd:dateTime ;
+    dc:title "hasBeliefConfidenceConfidenceDate" .
+
+belief:hasBeliefConfidenceConfidenceLocation:
+    a rdf:Property ;
+    rdfs:domain Human:belief ;
+    rdfs:range xsd:string ;
+    dc:title "hasBeliefConfidenceConfidenceLocation" .
+
+belief:hasBeliefConfidenceConfidenceComment:
+    a rdf:Property ;
+    rdfs:domain Human:belief ;
+    rdfs:range xsd:string ;
+    dc:title "hasBeliefConfidenceConfidenceComment" .
+
+
+
+## Define Evidence
+
+evidence:
+    a rdfs:Class, webizen:Class ;
+    rdfs:subClassOf lifeEvent: ;
+    dc:title "evidence" ;
+
+evidence:hasEvidence:
+    a rdf:Property ;
+    rdfs:domain lifeEvent:evidence ;
+    rdfs:range xsd:string ;
+    dc:title "hasEvidence" .
+
+evidence:hasEvidenceValue:
+    a rdf:Property ;
+    rdfs:domain lifeEvent:evidence ;
+    rdfs:range xsd:string ;
+    dc:title "hasEvidenceValue" .
+
+evidence:hasEvidenceUnit:
+    a rdf:Property ;
+    rdfs:domain lifeEvent:evidence ;
+    rdfs:range xsd:string ;
+    dc:title "hasEvidenceUnit" .
+
+evidence:hasEvidenceType:
+    a rdf:Property ;
+    rdfs:domain lifeEvent:evidence ;
+    rdfs:range xsd:string ;
+    dc:title "hasEvidenceType" .
+
+evidence:hasEvidenceSource:
+    a rdf:Property ;
+    rdfs:domain lifeEvent:evidence ;
+    rdfs:range xsd:string ;
+    dc:title "hasEvidenceSource" .
+
+evidence:hasEvidenceDate:
+    a rdf:Property ;
+    rdfs:domain lifeEvent:evidence ;
+    rdfs:range xsd:dateTime ;
+    dc:title "hasEvidenceDate" .
+
+evidence:hasEvidenceLocation:
+    a rdf:Property ;
+    rdfs:domain lifeEvent:evidence ;
+    rdfs:range xsd:string ;
+    dc:title "hasEvidenceLocation" .
+
+evidence:hasEvidenceComment:
+    a rdf:Property ;
+    rdfs:domain lifeEvent:evidence ;
+    rdfs:range xsd:string ;
+    dc:title "hasEvidenceComment" .
+
+evidence:hasEvidenceConfidence:
+    a rdf:Property ;
+    rdfs:domain lifeEvent:evidence ;
+    rdfs:range xsd:float ;
+    dc:title "hasEvidenceConfidence" .
+
+evidence:hasEvidenceConfidenceLevel:
+    a rdf:Property ;
+    rdfs:domain lifeEvent:evidence ;
+    rdfs:range xsd:string ;
+    dc:title "hasEvidenceConfidenceLevel" .
+
+evidence:hasEvidenceConfidenceSource:
+    a rdf:Property ;
+    rdfs:domain lifeEvent:evidence ;
+    rdfs:range xsd:string ;
+    dc:title "hasEvidenceConfidenceSource" .
+
+evidence:hasEvidenceConfidenceDate:
+    a rdf:Property ;
+    rdfs:domain lifeEvent:evidence ;
+    rdfs:range xsd:dateTime ;
+    dc:title "hasEvidenceConfidenceDate" .
+
+evidence:hasEvidenceConfidenceLocation:
+    a rdf:Property ;
+    rdfs:domain lifeEvent:evidence ;
+    rdfs:range xsd:string ;
+    dc:title "hasEvidenceConfidenceLocation" .
+
+evidence:hasEvidenceConfidenceComment:
+    a rdf:Property ;
+    rdfs:domain lifeEvent:evidence ;
+    rdfs:range xsd:string ;
+    dc:title "hasEvidenceConfidenceComment" .
+
+evidence:hasEvidenceConfidenceConfidence:
+    a rdf:Property ;
+    rdfs:domain lifeEvent:evidence ;
+    rdfs:range xsd:float ;
+    dc:title "hasEvidenceConfidenceConfidence" .
+
+evidence:hasEvidenceConfidenceConfidenceLevel:
+    a rdf:Property ;
+    rdfs:domain lifeEvent:evidence ;
+    rdfs:range xsd:string ;
+    dc:title "hasEvidenceConfidenceConfidenceLevel" .
+
+evidence:hasEvidenceConfidenceConfidenceSource:
+    a rdf:Property ;
+    rdfs:domain lifeEvent:evidence ;
+    rdfs:range xsd:string ;
+    dc:title "hasEvidenceConfidenceConfidenceSource" .
+
+evidence:hasEvidenceConfidenceConfidenceDate:
+    a rdf:Property ;
+    rdfs:domain lifeEvent:evidence ;
+    rdfs:range xsd:dateTime ;
+    dc:title "hasEvidenceConfidenceConfidenceDate" .
+
+evidence:hasEvidenceConfidenceConfidenceLocation:
+    a rdf:Property ;
+    rdfs:domain lifeEvent:evidence ;
+    rdfs:range xsd:string ;
+    dc:title "hasEvidenceConfidenceConfidenceLocation" .
+
+evidence:hasEvidenceConfidenceConfidenceComment:
+    a rdf:Property ;
+    rdfs:domain lifeEvent:evidence ;
+    rdfs:range xsd:string ;
+    dc:title "hasEvidenceConfidenceConfidenceComment" .
+
+evidence:hasEvidenceConfidenceConfidenceConfidence:
+    a rdf:Property ;
+    rdfs:domain lifeEvent:evidence ;
+    rdfs:range xsd:float ;
+    dc:title "hasEvidenceConfidenceConfidenceConfidence" .
+
+
+## Define Claim
+
+
+claim:
+    a rdfs:Class, webizen:Class ;
+    rdfs:subClassOf lifeEvent: ;
+    dc:title "claim" ;
+
+claim:madeclaim:
+    a rdf:Property ;
+    rdfs:domain lifeEvent:claim ;
+    rdfs:range xsd:string ;
+    dc:title "madeclaim" .
+
+claim:hasClaim:
+    a rdf:Property ;
+    rdfs:domain lifeEvent:claim ;
+    rdfs:range xsd:string ;
+    dc:title "hasClaim" .
+
+claim:hasClaimValue:
+    a rdf:Property ;
+    rdfs:domain lifeEvent:claim ;
+    rdfs:range xsd:string ;
+    dc:title "hasClaimValue" .
+
+claim:hasClaimUnit:
+    a rdf:Property ;
+    rdfs:domain lifeEvent:claim ;
+    rdfs:range xsd:string ;
+    dc:title "hasClaimUnit" .
+
+claim:hasClaimType:
+    a rdf:Property ;
+    rdfs:domain lifeEvent:claim ;
+    rdfs:range xsd:string ;
+    dc:title "hasClaimType" .
+
+claim:hasClaimSource:
+    a rdf:Property ;
+    rdfs:domain lifeEvent:claim ;
+    rdfs:range xsd:string ;
+    dc:title "hasClaimSource" .
+
+claim:hasClaimDate:
+    a rdf:Property ;
+    rdfs:domain lifeEvent:claim ;
+    rdfs:range xsd:dateTime ;
+    dc:title "hasClaimDate" .
+
+claim:hasClaimLocation:
+    a rdf:Property ;
+    rdfs:domain lifeEvent:claim ;
+    rdfs:range xsd:string ;
+    dc:title "hasClaimLocation" .
+
+claim:hasClaimComment:
+    a rdf:Property ;
+    rdfs:domain lifeEvent:claim ;
+    rdfs:range xsd:string ;
+    dc:title "hasClaimComment" .
+
+claim:hasClaimConfidence:
+    a rdf:Property ;
+    rdfs:domain lifeEvent:claim ;
+    rdfs:range xsd:float ;
+    dc:title "hasClaimConfidence" .
+
+claim:hasClaimConfidenceLevel:
+    a rdf:Property ;
+    rdfs:domain lifeEvent:claim ;
+    rdfs:range xsd:string ;
+    dc:title "hasClaimConfidenceLevel" .
+
+claim:hasClaimConfidenceSource:
+    a rdf:Property ;
+    rdfs:domain lifeEvent:claim ;
+    rdfs:range xsd:string ;
+    dc:title "hasClaimConfidenceSource" .
+
+claim:hasClaimConfidenceDate:
+    a rdf:Property ;
+    rdfs:domain lifeEvent:claim ;
+    rdfs:range xsd:dateTime ;
+    dc:title "hasClaimConfidenceDate" .
+
+claim:hasClaimConfidenceLocation:
+    a rdf:Property ;
+    rdfs:domain lifeEvent:claim ;
+    rdfs:range xsd:string ;
+    dc:title "hasClaimConfidenceLocation" .
+
+claim:hasClaimConfidenceComment:
+    a rdf:Property ;
+    rdfs:domain lifeEvent:claim ;
+    rdfs:range xsd:string ;
+    dc:title "hasClaimConfidenceComment" .
+
+claim:hasClaimConfidenceConfidence:
+    a rdf:Property ;
+    rdfs:domain lifeEvent:claim ;
+    rdfs:range xsd:float ;
+    dc:title "hasClaimConfidenceConfidence" .
+
+claim:hasClaimConfidenceConfidenceLevel:
+    a rdf:Property ;
+    rdfs:domain lifeEvent:claim ;
+    rdfs:range xsd:string ;
+    dc:title "hasClaimConfidenceConfidenceLevel" .
+
+claim:hasClaimConfidenceConfidenceSource:
+    a rdf:Property ;
+    rdfs:domain lifeEvent:claim ;
+    rdfs:range xsd:string ;
+    dc:title "hasClaimConfidenceConfidenceSource" .
+
+claim:hasClaimConfidenceConfidenceDate:
+    a rdf:Property ;
+    rdfs:domain lifeEvent:claim ;
+    rdfs:range xsd:dateTime ;
+    dc:title "hasClaimConfidenceConfidenceDate" .
+
+claim:hasClaimConfidenceConfidenceLocation:
+    a rdf:Property ;
+    rdfs:domain lifeEvent:claim ;
+    rdfs:range xsd:string ;
+    dc:title "hasClaimConfidenceConfidenceLocation" .
+
+claim:hasClaimConfidenceConfidenceComment:
+    a rdf:Property ;
+    rdfs:domain lifeEvent:claim ;
+    rdfs:range xsd:string ;
+    dc:title "hasClaimConfidenceConfidenceComment" .
+
+claim:hasClaimConfidenceConfidenceConfidence:
+    a rdf:Property ;
+    rdfs:domain lifeEvent:claim ;
+    rdfs:range xsd:float ;
+    dc:title "hasClaimConfidenceConfidenceConfidence" .
+
+## Define Record
+
+record:
+    a rdfs:Class, webizen:Class ;
+    rdfs:subClassOf claim: ;
+    dc:title "record" ;
+
+record:hasRecord:
+    a rdf:Property ;
+    rdfs:domain lifeEvent:record ;
+    rdfs:range xsd:string ;
+    dc:title "hasRecord" .
+
+record:hasRecordValue:
+    a rdf:Property ;
+    rdfs:domain lifeEvent:record ;
+    rdfs:range xsd:string ;
+    dc:title "hasRecordValue" .
+
+record:hasRecordUnit:
+    a rdf:Property ;
+    rdfs:domain lifeEvent:record ;
+    rdfs:range xsd:string ;
+    dc:title "hasRecordUnit" .
+
+record:hasRecordType:
+    a rdf:Property ;
+    rdfs:domain lifeEvent:record ;
+    rdfs:range xsd:string ;
+    dc:title "hasRecordType" .
+
+record:hasRecordSource:
+    a rdf:Property ;
+    rdfs:domain lifeEvent:record ;
+    rdfs:range xsd:string ;
+    dc:title "hasRecordSource" .
+
+record:hasRecordDate:
+    a rdf:Property ;
+    rdfs:domain lifeEvent:record ;
+    rdfs:range xsd:dateTime ;
+    dc:title "hasRecordDate" .
+
+record:hasRecordLocation:
+    a rdf:Property ;
+    rdfs:domain lifeEvent:record ;
+    rdfs:range xsd:string ;
+    dc:title "hasRecordLocation" .
+
+record:hasRecordComment:
+    a rdf:Property ;
+    rdfs:domain lifeEvent:record ;
+    rdfs:range xsd:string ;
+    dc:title "hasRecordComment" .
+
+record:hasRecordConfidence:
+    a rdf:Property ;
+    rdfs:domain lifeEvent:record ;
+    rdfs:range xsd:float ;
+    dc:title "hasRecordConfidence" .
+
+record:hasRecordConfidenceLevel:
+    a rdf:Property ;
+    rdfs:domain lifeEvent:record ;
+    rdfs:range xsd:string ;
+    dc:title "hasRecordConfidenceLevel" .
+
+record:hasRecordConfidenceSource:
+    a rdf:Property ;
+    rdfs:domain lifeEvent:record ;
+    rdfs:range xsd:string ;
+    dc:title "hasRecordConfidenceSource" .
+
+record:hasRecordConfidenceDate:
+    a rdf:Property ;
+    rdfs:domain lifeEvent:record ;
+    rdfs:range xsd:dateTime ;
+    dc:title "hasRecordConfidenceDate" .
+
+record:hasRecordConfidenceLocation:
+    a rdf:Property ;
+    rdfs:domain lifeEvent:record ;
+    rdfs:range xsd:string ;
+    dc:title "hasRecordConfidenceLocation" .
+
+record:hasRecordConfidenceComment:
+    a rdf:Property ;
+    rdfs:domain lifeEvent:record ;
+    rdfs:range xsd:string ;
+    dc:title "hasRecordConfidenceComment" .
+
+
+guardian:
+    a rdfs:Class, webizen:Class ;
+    rdfs:subClassOf characteristic: ;
+    dc:title "guardian" .
+
+## Define Guardian
+
+guardian:isGuardianOf:
+    a rdf:Property ;
+    rdfs:domain Human:guardian ;
+    rdfs:range xsd:string ;
+    dc:title "isGuardianOf" .
+
+guardian:isGuardianOfValue:
+    a rdf:Property ;
+    rdfs:domain Human:guardian ;
+    rdfs:range xsd:string ;
+    dc:title "isGuardianOfValue" .
+
+guardian:isGuardianOfUnit:
+    a rdf:Property ;
+    rdfs:domain Human:guardian ;
+    rdfs:range xsd:string ;
+    dc:title "isGuardianOfUnit" .
+
+guardian:isGuardianOfType:
+    a rdf:Property ;
+    rdfs:domain Human:guardian ;
+    rdfs:range xsd:string ;
+    dc:title "isGuardianOfType" .
+
+guardian:isGuardianOfSource:
+    a rdf:Property ;
+    rdfs:domain Human:guardian ;
+    rdfs:range xsd:string ;
+    dc:title "isGuardianOfSource" .
+
+guardian:isGuardianOfDate:
+    a rdf:Property ;
+    rdfs:domain Human:guardian ;
+    rdfs:range xsd:dateTime ;
+    dc:title "isGuardianOfDate" .
+
+guardian:isGuardianOfLocation:
+    a rdf:Property ;
+    rdfs:domain Human:guardian ;
+    rdfs:range xsd:string ;
+    dc:title "isGuardianOfLocation" .
+
+guardian:isGuardianOfComment:
+    a rdf:Property ;
+    rdfs:domain Human:guardian ;
+    rdfs:range xsd:string ;
+    dc:title "isGuardianOfComment" .
+
+guardian:isGuardianOfConfidence:
+    a rdf:Property ;
+    rdfs:domain Human:guardian ;
+    rdfs:range xsd:float ;
+    dc:title "isGuardianOfConfidence" .
+
+guardian:isGuardianOfConfidenceLevel:
+    a rdf:Property ;
+    rdfs:domain Human:guardian ;
+    rdfs:range xsd:string ;
+    dc:title "isGuardianOfConfidenceLevel" .
+
+guardian:isGuardianOfConfidenceSource:
+    a rdf:Property ;
+    rdfs:domain Human:guardian ;
+    rdfs:range xsd:string ;
+    dc:title "isGuardianOfConfidenceSource" .
+
+guardian:isGuardianOfConfidenceDate:
+    a rdf:Property ;
+    rdfs:domain Human:guardian ;
+    rdfs:range xsd:dateTime ;
+    dc:title "isGuardianOfConfidenceDate" .
+
+guardian:isGuardianOfConfidenceLocation:
+
+    a rdf:Property ;
+    rdfs:domain Human:guardian ;
+    rdfs:range xsd:string ;
+    dc:title "isGuardianOfConfidenceLocation" .
+
+guardian:isGuardianOfConfidenceComment:
+    a rdf:Property ;
+    rdfs:domain Human:guardian ;
+    rdfs:range xsd:string ;
+    dc:title "isGuardianOfConfidenceComment" .
+
+guardian:isGuardianOfConfidenceConfidence:
+    a rdf:Property ;
+    rdfs:domain Human:guardian ;
+    rdfs:range xsd:float ;
+    dc:title "isGuardianOfConfidenceConfidence" .
+
+## Define dependents
+
+guardian:hasGuardian:
+    a rdf:Property ;
+    rdfs:domain lifeEvent:guardian ;
+    rdfs:range xsd:string ;
+    dc:title "hasGuardian" .
+
+guardian:hasGuardianValue:
+    a rdf:Property ;
+    rdfs:domain lifeEvent:guardian ;
+    rdfs:range xsd:string ;
+    dc:title "hasGuardianValue" .
+
+guardian:hasGuardianUnit:
+    a rdf:Property ;
+    rdfs:domain Human:guardian ;
+    rdfs:range xsd:string ;
+    dc:title "hasGuardianUnit" .
+
+guardian:hasGuardianType:
+    a rdf:Property ;
+    rdfs:domain Human:guardian ;
+    rdfs:range xsd:string ;
+    dc:title "hasGuardianType" .
+
+guardian:hasGuardianSource:
+    a rdf:Property ;
+    rdfs:domain Human:guardian ;
+    rdfs:range xsd:string ;
+    dc:title "hasGuardianSource" .
+
+guardian:hasGuardianDate:
+    a rdf:Property ;
+    rdfs:domain Human:guardian ;
+    rdfs:range xsd:dateTime ;
+    dc:title "hasGuardianDate" .
+
+guardian:hasGuardianLocation:
+    a rdf:Property ;
+    rdfs:domain Human:guardian ;
+    rdfs:range xsd:string ;
+    dc:title "hasGuardianLocation" .
+
+guardian:hasGuardianComment:
+    a rdf:Property ;
+    rdfs:domain Human:guardian ;
+    rdfs:range xsd:string ;
+    dc:title "hasGuardianComment" .
+
+guardian:hasGuardianConfidence:
+    a rdf:Property ;
+    rdfs:domain Human:guardian ;
+    rdfs:range xsd:float ;
+    dc:title "hasGuardianConfidence" .
+
+guardian:hasGuardianConfidenceLevel:
+    a rdf:Property ;
+    rdfs:domain Human:guardian ;
+    rdfs:range xsd:string ;
+    dc:title "hasGuardianConfidenceLevel" .
+
+guardian:hasGuardianConfidenceSource:
+    a rdf:Property ;
+    rdfs:domain Human:guardian ;
+    rdfs:range xsd:string ;
+    dc:title "hasGuardianConfidenceSource" .
+
+guardian:hasGuardianConfidenceDate:
+    a rdf:Property ;
+    rdfs:domain Human:guardian ;
+    rdfs:range xsd:dateTime ;
+    dc:title "hasGuardianConfidenceDate" .
+
+guardian:hasGuardianConfidenceLocation:
+    a rdf:Property ;
+    rdfs:domain Human:guardian ;
+    rdfs:range xsd:string ;
+    dc:title "hasGuardianConfidenceLocation" .
+
+guardian:hasGuardianConfidenceComment:
+    a rdf:Property ;
+    rdfs:domain Human:guardian ;
+    rdfs:range xsd:string ;
+    dc:title "hasGuardianConfidenceComment" .
+
+guardian:hasGuardianConfidenceConfidence:
+    a rdf:Property ;
+    rdfs:domain Human:guardian ;
+    rdfs:range xsd:float ;
+    dc:title "hasGuardianConfidenceConfidence" .
+
+guardian:hasGuardianConfidenceConfidenceLevel:
+    a rdf:Property ;
+    rdfs:domain Human:guardian ;
+    rdfs:range xsd:string ;
+    dc:title "hasGuardianConfidenceConfidenceLevel" .
+
+guardian:hasGuardianConfidenceConfidenceSource:
+    a rdf:Property ;
+    rdfs:domain Human:guardian ;
+    rdfs:range xsd:string ;
+    dc:title "hasGuardianConfidenceConfidenceSource" .
+
+guardian:hasGuardianConfidenceConfidenceDate:
+    a rdf:Property ;
+    rdfs:domain Human:guardian ;
+    rdfs:range xsd:dateTime ;
+    dc:title "hasGuardianConfidenceConfidenceDate" .
+
+## Define property
+
+owns:
+    a rdfs:Class, webizen:Class ;
+    rdfs:subClassOf attribute: ;
+    dc:title "Owns" .
+
+owns:isOwnerOf:
+    a rdf:Property ;
+    rdfs:domain Human:owner ;
+    rdfs:range xsd:string ;
+    dc:title "isOwnerOf" .
+
+owns:isOwnerOfValue:
+    a rdf:Property ;
+    rdfs:domain Human:owner ;
+    rdfs:range xsd:string ;
+    dc:title "isOwnerOfValue" .
+
+owns:isOwnerOfUnit:
+    a rdf:Property ;
+    rdfs:domain Human:owner ;
+    rdfs:range xsd:string ;
+    dc:title "isOwnerOfUnit" .
+
+owns:isOwnerOfType:
+    a rdf:Property ;
+    rdfs:domain Human:owner ;
+    rdfs:range xsd:string ;
+    dc:title "isOwnerOfType" .
+
+owns:isOwnerOfSource:
+    a rdf:Property ;
+    rdfs:domain Human:owner ;
+    rdfs:range xsd:string ;
+    dc:title "isOwnerOfSource" .
+
+owns:isOwnerOfDate:
+    a rdf:Property ;
+    rdfs:domain Human:owner ;
+    rdfs:range xsd:dateTime ;
+    dc:title "isOwnerOfDate" .
+
+owns:isOwnerOfLocation:
+    a rdf:Property ;
+    rdfs:domain Human:owner ;
+    rdfs:range xsd:string ;
+    dc:title "isOwnerOfLocation" .
+
+owns:isOwnerOfComment:
+    a rdf:Property ;
+    rdfs:domain Human:owner ;
+    rdfs:range xsd:string ;
+    dc:title "isOwnerOfComment" .
+
+owns:isOwnerOfConfidence:
+    a rdf:Property ;
+    rdfs:domain Human:owner ;
+    rdfs:range xsd:float ;
+    dc:title "isOwnerOfConfidence" .
+
+owns:isOwnerOfConfidenceLevel:
+    a rdf:Property ;
+    rdfs:domain Human:owner ;
+    rdfs:range xsd:string ;
+    dc:title "isOwnerOfConfidenceLevel" .
+
+owns:isOwnerOfConfidenceSource:
+    a rdf:Property ;
+    rdfs:domain Human:owner ;
+    rdfs:range xsd:string ;
+    dc:title "isOwnerOfConfidenceSource" .
+
+owns:isOwnerOfConfidenceDate:
+    a rdf:Property ;
+    rdfs:domain Human:owner ;
+    rdfs:range xsd:dateTime ;
+    dc:title "isOwnerOfConfidenceDate" .
+
+owns:isOwnerOfConfidenceLocation:
+    a rdf:Property ;
+    rdfs:domain Human:owner ;
+    rdfs:range xsd:string ;
+    dc:title "isOwnerOfConfidenceLocation" .
+
+owns:isOwnerOfConfidenceComment:
+    a rdf:Property ;
+    rdfs:domain Human:owner ;
+    rdfs:range xsd:string ;
+    dc:title "isOwnerOfConfidenceComment" .
+
+role:
+    a rdfs:Class, webizen:Class ;
+    rdfs:subClassOf characteristic: ;
+    dc:title "Roles" .
+
+role:hasRole:
+    a rdf:Property ;
+    rdfs:domain Human:role ;
+    rdfs:range xsd:string ;
+    dc:title "hasRole" .
+
+role:hasRoleValue:
+    a rdf:Property ;
+    rdfs:domain Human:role ;
+    rdfs:range xsd:string ;
+    dc:title "hasRoleValue" .
+
+role:hasRoleUnit:
+    a rdf:Property ;
+    rdfs:domain Human:role ;
+    rdfs:range xsd:string ;
+    dc:title "hasRoleUnit" .
+
+role:hasRoleType:
+    a rdf:Property ;
+    rdfs:domain Human:role ;
+    rdfs:range xsd:string ;
+    dc:title "hasRoleType" .
+
+role:hasRoleSource:
+    a rdf:Property ;
+    rdfs:domain Human:role ;
+    rdfs:range xsd:string ;
+    dc:title "hasRoleSource" .
+
+role:hasRoleDate:
+    a rdf:Property ;
+    rdfs:domain Human:role ;
+    rdfs:range xsd:dateTime ;
+    dc:title "hasRoleDate" .
+
+role:hasRoleLocation:
+    a rdf:Property ;
+    rdfs:domain Human:role ;
+    rdfs:range xsd:string ;
+    dc:title "hasRoleLocation" .
+
+role:hasRoleComment:
+    a rdf:Property ;
+    rdfs:domain Human:role ;
+    rdfs:range xsd:string ;
+    dc:title "hasRoleComment" .
+
+role:hasRoleConfidence:
+    a rdf:Property ;
+    rdfs:domain Human:role ;
+    rdfs:range xsd:float ;
+    dc:title "hasRoleConfidence" .
+
+role:hasRoleConfidenceLevel:
+    a rdf:Property ;
+    rdfs:domain Human:role ;
+    rdfs:range xsd:string ;
+    dc:title "hasRoleConfidenceLevel" .
+
+role:hasRoleConfidenceSource:
+    a rdf:Property ;
+    rdfs:domain Human:role ;
+    rdfs:range xsd:string ;
+    dc:title "hasRoleConfidenceSource" .
+
+role:hasRoleConfidenceDate:
+    a rdf:Property ;
+    rdfs:domain Human:role ;
+    rdfs:range xsd:dateTime ;
+    dc:title "hasRoleConfidenceDate" .
+
+role:hasRoleConfidenceLocation:
+    a rdf:Property ;
+    rdfs:domain Human:role ;
+    rdfs:range xsd:string ;
+    dc:title "hasRoleConfidenceLocation" .
+
+role:hasRoleConfidenceComment:
+    a rdf:Property ;
+    rdfs:domain Human:role ;
+    rdfs:range xsd:string ;
+    dc:title "hasRoleConfidenceComment" .
+
+role:hasRoleConfidenceReference:
+    a rdf:Property ;
+    rdfs:domain Human:role ;
+    rdfs:range xsd:anyURI ;
+    dc:title "hasRoleConfidenceConfidence" .
+
+ability:
+    a rdfs:Class, webizen:Class ;
+    rdfs:subClassOf characteristic: ;
+    dc:title "Ability" .
+
+ability:hasAbility:
+    a rdf:Property ;
+    rdfs:domain Human:ability ;
+    rdfs:range xsd:string ;
+    dc:title "hasAbility" .
+
+ability:hasAbilityValue:
+    a rdf:Property ;
+    rdfs:domain Human:ability ;
+    rdfs:range xsd:string ;
+    dc:title "hasAbilityValue" .
+
+ability:hasAbilityUnit:
+    a rdf:Property ;
+    rdfs:domain Human:ability ;
+    rdfs:range xsd:string ;
+    dc:title "hasAbilityUnit" .
+
+ability:hasAbilityType:
+    a rdf:Property ;
+    rdfs:domain Human:ability ;
+    rdfs:range xsd:string ;
+    dc:title "hasAbilityType" .
+
+ability:hasAbilitySource:
+    a rdf:Property ;
+    rdfs:domain Human:ability ;
+    rdfs:range xsd:string ;
+    dc:title "hasAbilitySource" .
+
+ability:hasAbilityDate:
+    a rdf:Property ;
+    rdfs:domain Human:ability ;
+    rdfs:range xsd:dateTime ;
+    dc:title "hasAbilityDate" .
+
+ability:hasAbilityLocation:
+    a rdf:Property ;
+    rdfs:domain Human:ability ;
+    rdfs:range xsd:string ;
+    dc:title "hasAbilityLocation" .
+
+ability:hasAbilityComment:
+    a rdf:Property ;
+    rdfs:domain Human:ability ;
+    rdfs:range xsd:string ;
+    dc:title "hasAbilityComment" .
+
+ability:hasAbilityConfidence:
+    a rdf:Property ;
+    rdfs:domain Human:ability ;
+    rdfs:range xsd:float ;
+    dc:title "hasAbilityConfidence" .
+
+ability:hasAbilityConfidenceLevel:
+    a rdf:Property ;
+    rdfs:domain Human:ability ;
+    rdfs:range xsd:string ;
+    dc:title "hasAbilityConfidenceLevel" .
+
+ability:hasAbilityConfidenceSource:
+    a rdf:Property ;
+    rdfs:domain Human:ability ;
+    rdfs:range xsd:string ;
+    dc:title "hasAbilityConfidenceSource" .
+
+ability:hasAbilityConfidenceDate:
+    a rdf:Property ;
+    rdfs:domain Human:ability ;
+    rdfs:range xsd:dateTime ;
+    dc:title "hasAbilityConfidenceDate" .
+
+ability:hasAbilityConfidenceLocation:
+    a rdf:Property ;
+    rdfs:domain Human:ability ;
+    rdfs:range xsd:string ;
+    dc:title "hasAbilityConfidenceLocation" .
+
+ability:hasAbilityConfidenceComment:
+    a rdf:Property ;
+    rdfs:domain Human:ability ;
+    rdfs:range xsd:string ;
+    dc:title "hasAbilityConfidenceComment" .
+
+ability:hasAbilityConfidenceReference:
+    a rdf:Property ;
+    rdfs:domain Human:ability ;
+    rdfs:range xsd:anyURI ;
+    dc:title "hasAbilityConfidenceConfidence" .
+
+ability:hasAbilityConfidenceReferenceDate:
+    a rdf:Property ;
+    rdfs:domain Human:ability ;
+    rdfs:range xsd:dateTime ;
+    dc:title "hasAbilityConfidenceReferenceDate" .
+
+ability:hasAbilityConfidenceReferenceLocation:
+    a rdf:Property ;
+    rdfs:domain Human:ability ;
+    rdfs:range xsd:string ;
+    dc:title "hasAbilityConfidenceReferenceLocation" .
+
+biometrics:
+    a rdfs:Class, webizen:Class ;
+    rdfs:subClassOf characteristic: ;
+    dc:title "Biometrics" .
+
+biometrics:hasBiometrics:
+    a rdf:Property ;
+    rdfs:domain Human:biometrics ;
+    rdfs:range xsd:string ;
+    dc:title "hasBiometrics" .
+
+biometrics:hasBiometricsValue:
+    a rdf:Property ;
+    rdfs:domain Human:biometrics ;
+    rdfs:range xsd:string ;
+    dc:title "hasBiometricsValue" .
+
+biometrics:hasBiometricsUnit:
+    a rdf:Property ;
+    rdfs:domain Human:biometrics ;
+    rdfs:range xsd:string ;
+    dc:title "hasBiometricsUnit" .
+
+biometrics:hasBiometricsType:
+    a rdf:Property ;
+    rdfs:domain Human:biometrics ;
+    rdfs:range xsd:string ;
+    dc:title "hasBiometricsType" .
+
+biometrics:hasBiometricsSource:
+    a rdf:Property ;
+    rdfs:domain Human:biometrics ;
+    rdfs:range xsd:string ;
+    dc:title "hasBiometricsSource" .
+
+biometrics:hasBiometricsDate:
+    a rdf:Property ;
+    rdfs:domain Human:biometrics ;
+    rdfs:range xsd:dateTime ;
+    dc:title "hasBiometricsDate" .
+
+biometrics:hasBiometricsLocation:
+    a rdf:Property ;
+    rdfs:domain Human:biometrics ;
+    rdfs:range xsd:string ;
+    dc:title "hasBiometricsLocation" .
+
+biometrics:hasBiometricsComment:
+    a rdf:Property ;
+    rdfs:domain Human:biometrics ;
+    rdfs:range xsd:string ;
+    dc:title "hasBiometricsComment" .
+
+biometrics:hasBiometricsConfidence:
+    a rdf:Property ;
+    rdfs:domain Human:biometrics ;
+    rdfs:range xsd:float ;
+    dc:title "hasBiometricsConfidence" .
+
+biometrics:hasBiometricsConfidenceLevel:
+    a rdf:Property ;
+    rdfs:domain Human:biometrics ;
+    rdfs:range xsd:string ;
+    dc:title "hasBiometricsConfidenceLevel" .
+
+biometrics:hasBiometricsConfidenceSource:
+    a rdf:Property ;
+    rdfs:domain Human:biometrics ;
+    rdfs:range xsd:string ;
+    dc:title "hasBiometricsConfidenceSource" .
+
+biometrics:hasBiometricsConfidenceDate:
+    a rdf:Property ;
+    rdfs:domain Human:biometrics ;
+    rdfs:range xsd:dateTime ;
+    dc:title "hasBiometricsConfidenceDate" .
+
+biometrics:hasBiometricsConfidenceLocation:
+    a rdf:Property ;
+    rdfs:domain Human:biometrics ;
+    rdfs:range xsd:string ;
+    dc:title "hasBiometricsConfidenceLocation" .
+
+biometrics:hasBiometricsConfidenceComment:
+    a rdf:Property ;
+    rdfs:domain Human:biometrics ;
+    rdfs:range xsd:string ;
+    dc:title "hasBiometricsConfidenceComment" .
+
+biometrics:hasBiometricsConfidenceReference:
+    a rdf:Property ;
+    rdfs:domain Human:biometrics ;
+    rdfs:range xsd:anyURI ;
+    dc:title "hasBiometricsConfidenceConfidence" .
+
+biometrics:hasBiometricsConfidenceReferenceDate:
+    a rdf:Property ;
+    rdfs:domain Human:biometrics ;
+    rdfs:range xsd:dateTime ;
+    dc:title "hasBiometricsConfidenceReferenceDate" .
+
+biometrics:hasBiometricsConfidenceReferenceLocation:
+    a rdf:Property ;
+    rdfs:domain Human:biometrics ;
+    rdfs:range xsd:string ;
+    dc:title "hasBiometricsConfidenceReferenceLocation" .
+
+biometrics:hasBiometricsConfidenceReferenceComment:
+    a rdf:Property ;
+    rdfs:domain Human:biometrics ;
+    rdfs:range xsd:string ;
+    dc:title "hasBiometricsConfidenceReferenceComment" .
+
+
+
+## define Human attributes
+
+
+me:attribute
+    a rdfs:Class, webizen:Class ;
+    rdfs:domain me:Human ;
+    rdfs:subClassOf me:Human ;
+    dc:title "Attribute" ;
+
+me:value
+  a rdf:Property, webizen:DatatypeProperty ;
+    rdfs:domain me:attribute ;
+    rdfs:range xsd:string ;
+    dc:title "hasValue" .
+
+attribute:hasUnit:
+    a rdf:Property ;
+    rdfs:domain me:attribute ;
+    rdfs:range xsd:string ;
+    dc:title "hasUnit" .
+
+attribute:hasType:
+    a rdf:Property ;
+    rdfs:domain me:attribute ;
+    rdfs:range xsd:string ;
+    dc:title "hasType" .
+
+attribute:hasSource:
+    a rdf:Property ;
+    rdfs:domain me:attribute ;
+    rdfs:range xsd:string ;
+    dc:title "hasSource" .
+
+attribute:hasDate:
+    a rdf:Property ;
+    rdfs:domain me:attribute ;
+    rdfs:range xsd:dateTime ;
+    dc:title "hasDate" .
+
+attribute:hasLocation:
+    a rdf:Property ;
+    rdfs:domain me:attribute ;
+    rdfs:range xsd:string ;
+    dc:title "hasLocation" .
+
+attribute:hasComment:
+    a rdf:Property ;
+    rdfs:domain me:attribute ;
+    rdfs:range xsd:string ;
+    dc:title "hasComment" .
+
+attribute:hasConfidence:
+    a rdf:Property ;
+    rdfs:domain me:attribute ;
+    rdfs:range xsd:float ;
+    dc:title "hasConfidence" .
+
+attribute:hasConfidenceLevel:
+    a rdf:Property ;
+    rdfs:domain me:attribute ;
+    rdfs:range xsd:string ;
+    dc:title "hasConfidenceLevel" .
+
+attribute:hasConfidenceSource:
+    a rdf:Property ;
+    rdfs:domain me:attribute ;
+    rdfs:range xsd:string ;
+    dc:title "hasConfidenceSource" .
+
+attribute:hasConfidenceDate:
+    a rdf:Property ;
+    rdfs:domain me:attribute ;
+    rdfs:range xsd:dateTime ;
+    dc:title "hasConfidenceDate" .
+
+attribute:hasConfidenceLocation:
+    a rdf:Property ;
+    rdfs:domain me:attribute ;
+    rdfs:range xsd:string ;
+    dc:title "hasConfidenceLocation" .
+
+attribute:hasConfidenceComment:
+    a rdf:Property ;
+    rdfs:domain me:attribute ;
+    rdfs:range xsd:string ;
+    dc:title "hasConfidenceComment" .
+
+attribute:hasConfidenceConfidence:
+    a rdf:Property ;
+    rdfs:domain me:attribute ;
+    rdfs:range xsd:float ;
+    dc:title "hasConfidenceConfidence" .
+
+attribute:hasConfidenceConfidenceLevel:
+    a rdf:Property ;
+    rdfs:domain me:attribute ;
+    rdfs:range xsd:string ;
+    dc:title "hasConfidenceConfidenceLevel" .
+
+attribute:hasConfidenceConfidenceSource:
+    a rdf:Property ;
+    rdfs:domain me:attribute ;
+    rdfs:range xsd:string ;
+    dc:title "hasConfidenceConfidenceSource" .
+
+attribute:hasConfidenceConfidenceDate:
+    a rdf:Property ;
+    rdfs:domain me:attribute ;
+    rdfs:range xsd:dateTime ;
+    dc:title "hasConfidenceConfidenceDate" .
+
+attribute:hasConfidenceConfidenceLocation:
+    a rdf:Property ;
+    rdfs:domain me:attribute ;
+    rdfs:range xsd:string ;
+    dc:title "hasConfidenceConfidenceLocation" .
+
+attribute:hasConfidenceConfidenceComment:
+    a rdf:Property ;
+    rdfs:domain me:attribute ;
+    rdfs:range xsd:string ;
+    dc:title "hasConfidenceConfidenceComment" .
+
+attribute:hascharacteristic:
+    a rdf:Property ;
+    rdfs:domain me:attribute ;
+    rdfs:range xsd:string ;
+    dc:title "hascharacteristic" .
+
+attribute:hascharacteristicValue:
+    a rdf:Property ;
+    rdfs:domain me:attribute ;
+    rdfs:range xsd:string ;
+    dc:title "hascharacteristicValue" .
+
+attribute:hascharacteristicUnit:
+    a rdf:Property ;
+    rdfs:domain me:attribute ;
+    rdfs:range xsd:string ;
+    dc:title "hascharacteristicUnit" .
+
+attribute:hascharacteristicType:
+    a rdf:Property ;
+    rdfs:domain me:attribute ;
+    rdfs:range xsd:string ;
+    dc:title "hascharacteristicType" .
+
+attribute:hascharacteristicSource:
+    a rdf:Property ;
+    rdfs:domain me:attribute ;
+    rdfs:range xsd:string ;
+    dc:title "hascharacteristicSource" .
+
+attribute:hascharacteristicDate:
+    a rdf:Property ;
+    rdfs:domain me:attribute ;
+    rdfs:range xsd:dateTime ;
+    dc:title "hascharacteristicDate" .
+
+attribute:hascharacteristicLocation:
+    a rdf:Property ;
+    rdfs:domain me:attribute ;
+    rdfs:range xsd:string ;
+    dc:title "hascharacteristicLocation" .
+
+attribute:hascharacteristicComment:
+    a rdf:Property ;
+    rdfs:domain me:attribute ;
+    rdfs:range xsd:string ;
+    dc:title "hascharacteristicComment" .
+
+attribute:hascharacteristicConfidence:
+    a rdf:Property ;
+    rdfs:domain me:attribute ;
+    rdfs:range xsd:float ;
+    dc:title "hascharacteristicConfidence" .
+
+attribute:hascharacteristicConfidenceLevel:
+    a rdf:Property ;
+    rdfs:domain me:attribute ;
+    rdfs:range xsd:string ;
+    dc:title "hascharacteristicConfidenceLevel" .
+
+attribute:hascharacteristicConfidenceSource:
+    a rdf:Property ;
+    rdfs:domain me:attribute ;
+    rdfs:range xsd:string ;
+    dc:title "hascharacteristicConfidenceSource" .
+
+attribute:hascharacteristicConfidenceDate:
+    a rdf:Property ;
+    rdfs:domain me:attribute ;
+    rdfs:range xsd:dateTime ;
+    dc:title "hascharacteristicConfidenceDate" .
+
+attribute:hascharacteristicConfidenceLocation:
+    a rdf:Property ;
+    rdfs:domain me:attribute ;
+    rdfs:range xsd:string ;
+    dc:title "hascharacteristicConfidenceLocation" .
+
+attribute:hascharacteristicConfidenceComment:
+    a rdf:Property ;
+    rdfs:domain me:attribute ;
+    rdfs:range xsd:string ;
+    dc:title "hascharacteristicConfidenceComment" .
+
+attribute:hascharacteristicConfidenceConfidence:
+    a rdf:Property ;
+    rdfs:domain me:attribute ;
+    rdfs:range xsd:float ;
+    dc:title "hascharacteristicConfidenceConfidence" .
+
+attribute:hascharacteristicConfidenceConfidenceLevel:
+    a rdf:Property ;
+    rdfs:domain me:attribute ;
+    rdfs:range xsd:string ;
+    dc:title "hascharacteristicConfidenceConfidenceLevel" .
+
+attribute:hascharacteristicConfidenceConfidenceSource:
+    a rdf:Property ;
+    rdfs:domain me:attribute ;
+    rdfs:range xsd:string ;
+    dc:title "hascharacteristicConfidenceConfidenceSource" .
+
+attribute:hascharacteristicConfidenceConfidenceDate:
+    a rdf:Property ;
+    rdfs:domain me:attribute ;
+    rdfs:range xsd:dateTime ;
+    dc:title "hascharacteristicConfidenceConfidenceDate" .
+
+attribute:hascharacteristicConfidenceConfidenceLocation:
+    a rdf:Property ;
+    rdfs:domain me:attribute ;
+    rdfs:range xsd:string ;
+    dc:title "hascharacteristicConfidenceConfidenceLocation" .
+
+attribute:hascharacteristicConfidenceConfidenceComment:
+    a rdf:Property ;
+    rdfs:domain me:attribute ;
+    rdfs:range xsd:string ;
+    dc:title "hascharacteristicConfidenceConfidenceComment" .

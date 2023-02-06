@@ -1,0 +1,120 @@
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix og: <http://ogp.me/ns#> .
+@prefix ogc: <http://ogp.me/ns/class#> .
+@prefix bibo: <http://purl.org/ontology/bibo/> .
+@prefix dc: <http://purl.org/dc/elements/1.1/> .
+@prefix foaf: <http://xmlns.com/foaf/0.1/> .
+@prefix geo: <http://www.w3.org/2003/01/geo/wgs84_pos#> .
+@prefix gr: <http://purl.org/goodrelations/v1#> .
+@prefix vcard: <http://www.w3.org/2006/vcard/ns#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix me: <http://www.webizen.org/Human#> .
+@prefix webizen: <http://www.webizen.org/webizen#> .
+@prefix ns0: <http://www.w3.org/2003/06/sw-vocab-status/ns#> .
+
+me:
+a webizen:Ontology ;
+
+dc:title "Human Ontology" ;
+dc:description "This ontology defines the characteristics of a Human being." ;
+dc:creator "Webizen.org" ;
+dc:contributor "Webizen.org" ;
+dc:subject "Human" ;
+dc:subject "Ontology" ;
+dc:subject "characteristics" ;
+dc:subject "Attributes" ;
+dc:subject "Webizen.org" ;
+dc:subject "Webizen" ;
+dc:subject "HumanCentricAI" ;
+dc:subject "HumanCentricDigitalIdentity" .
+
+
+me:Human
+  a webizen:Class, rdfs:Class ;
+  rdfs:isDefinedBy me: ;
+  ns0:term_status "stable" ;
+  rdfs:label "Agent" ;
+  rdfs:comment "An agent (eg. Representing person, group, software or physical artifact)." ;
+  dc:title "Human" ;
+  dc:description "A Human being." .
+
+## Define characteristics
+
+me:Characteristic
+  a rdfs:Class, webizen:Class ;
+  ns0:term_status "stable" ;
+  rdfs:label "Characteristic" ;
+  rdfs:comment "A human characteristic." ;
+  rdfs:subClassOf me:Human .
+
+
+me:name
+  a rdf:Property, webizen:DatatypeProperty ;
+  ns0:term_status "testing" ;
+  rdfs:label "name" ;
+  rdfs:comment "A name for some thing." ;
+  rdfs:domain me:Characteristic ;
+  rdfs:range rdfs:Literal ;
+  rdfs:isDefinedBy me: ;
+  rdfs:subPropertyOf rdfs:label .
+
+me:firstName
+  a rdf:Property, webizen:DatatypeProperty ;
+  ns0:term_status "testing" ;
+  rdfs:label "firstName" ;
+  rdfs:comment "The first name of a person." ;
+  rdfs:domain me:Characteristic ;
+  rdfs:range rdfs:Literal ;
+  rdfs:isDefinedBy me: .
+
+me:lastName
+  a rdf:Property, webizen:DatatypeProperty ;
+  ns0:term_status "testing" ;
+  rdfs:label "lastName" ;
+  rdfs:comment "The last name of a person." ;
+  rdfs:domain me:Characteristic ;
+  rdfs:range rdfs:Literal ;
+  rdfs:isDefinedBy me: .
+
+me:givenName
+  a rdf:Property, webizen:DatatypeProperty ;
+  ns0:term_status "testing" ;
+  rdfs:label "Given name" ;
+  rdfs:comment "The given name of some person." ;
+  rdfs:isDefinedBy  me: .
+
+me:givenname
+  a rdf:Property, webizen:DatatypeProperty ;
+  ns0:term_status "testing" ;
+  rdfs:label "Given name" ;
+  rdfs:comment "The given name of some person." ;
+  rdfs:isDefinedBy  me: .
+
+me:surname
+  a rdf:Property, webizen:DatatypeProperty ;
+  ns0:term_status "testing" ;
+  rdfs:label "Surname" ;
+  rdfs:comment "The surname of some person." ;
+  rdfs:domain me:Characteristic ;
+  rdfs:range rdfs:Literal ;
+  rdfs:isDefinedBy  me: .
+
+me:family_name
+  a rdf:Property, webizen:DatatypeProperty ;
+  ns0:term_status "testing" ;
+  rdfs:label "family_name" ;
+  rdfs:comment "The family name of some person." ;
+  rdfs:domain me:Characteristic ;
+  rdfs:range rdfs:Literal ;
+  rdfs:isDefinedBy me: .
+
+me:familyName
+  a rdf:Property, webizen:DatatypeProperty ;
+  ns0:term_status "testing" ;
+  rdfs:label "familyName" ;
+  rdfs:comment "The family name of some person." ;
+  rdfs:domain me:Characteristic ;
+  rdfs:range rdfs:Literal ;
+  rdfs:isDefinedBy me: .
