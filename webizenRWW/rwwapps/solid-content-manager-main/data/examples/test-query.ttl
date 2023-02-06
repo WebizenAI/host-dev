@@ -1,0 +1,14 @@
+@prefix : <#> .
+@prefix ui: <http://www.w3.org/ns/ui#> .
+
+:this
+  a ui:SparqlQuery ;
+  ui:endpoint <test-data.ttl#this> ;
+  ui:query """
+    PREFIX : <http://xmlns.com/foaf/0.1/> 
+    SELECT ?name ?age WHERE {
+      ?x a :Person; :name ?name; :age ?age .
+      ${formCondition}
+    }
+    ORDER BY ASC(?age)
+  """ .

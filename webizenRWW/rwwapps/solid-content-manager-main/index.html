@@ -1,0 +1,66 @@
+<meta http-equiv="Cache-control" content="no-cache">
+
+<body id="PageBody" class="display">
+
+  <h1 id="shadowBody" class="loading"></h1>
+
+  <div id="far-left-column" >
+      <span class="menu button" title="--- HIDE/SHOW MENU PANEL"></span>
+      <span class="screen button" title="--- MAIN MENU"></span>
+      <span class="wrench button" title="--- TOOLS MENU"></span>
+      <span class="gear button" title="--- MENU MANAGER"></span>
+      <span class="help button" title="--- HELP"></span>
+  </div>
+
+  <div id="left-column">
+    <span id="login"></span>
+    <div
+      id = "menuArea" 
+      data-suic = "/cm/ui/mainMenu.ttl#MainMenu"
+      data-display = "#display"
+    ></div>
+    <div
+      id = "manageMenuArea" 
+      data-suic = "/cm/ui/manageMenu.ttl#ManageMenu"
+      data-display = "#display"
+    ></div>
+    <div
+      id = "toolsMenuArea" 
+      data-suic = "/cm/ui/toolsMenu.ttl#ToolsMenu"
+      data-display = "#display"
+    ></div>
+  </div><!-- #left-column -->
+
+  <!-- TABULATOR
+  -->
+  <header id="PageHeader"></header>
+  <div id="right-column-tabulator">
+        <div class="TabulatorOutline" role="main" id="suicTabulator">
+          <table id="outline"></table>
+          <div id="GlobalDashboard"></div>
+        </div>
+  </div>
+  <footer id="PageFooter"></footer>
+
+  <div id="display"></div>
+
+</body>
+
+<script src="https://rdf.js.org/comunica-browser/versions/1/packages/actor-init-sparql/comunica-browser.js">
+</script>
+<!-- 
+<script src="http://rdf.js.org/comunica-browser/versions/2/engines/query-sparql/comunica-browser.js">
+</script>
+-->
+<script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+<script src="./node_modules/mashlib/dist/mashlib.js" type="module"></script>
+<script type="module">
+import mime from "https://cdn.skypack.dev/mime";
+window.mime=mime;
+</script>
+<script src="./node_modules/solid-ui-components/dist/solid-ui-components.bundle.js" type="module"></script>
+<script src="./src/index.js" type="module"></script>
+<link rel="stylesheet" href="./node_modules/mashlib/dist/mash.css" />
+<link rel="stylesheet" href="/s/solid-ui-components/assets/linked-bookmarks.css" />
+<link rel="stylesheet" href="./assets/zeditor.css" />
+

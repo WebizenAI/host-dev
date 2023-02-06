@@ -1,0 +1,8 @@
+[submodule "dist"]
+	path = dist
+	url = dokku@apps.allmende.io:app.solidbase.info
+	branch = master
+
+[submodule "src/locales"]
+	path = src/locales
+	url = ../translations.git

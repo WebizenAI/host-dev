@@ -1,0 +1,6 @@
+Need to add a TLS cert for the headscale headend and SAN method for clients.
+
+using: golang.org/x/crypto/acme
+
+
+I think its done.  

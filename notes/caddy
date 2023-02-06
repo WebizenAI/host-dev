@@ -1,0 +1,28 @@
+
+
+Example Caddy File for gPanel
+
+# gPanel configuration
+
+# gPanel's server block
+gpanel.example.com {
+  proxy / localhost:8080 {
+    transparent
+  }
+
+  tls {
+    dns cloudflare
+  }
+}
+
+# Caddy's server block for gPanel's API
+api.gpanel.example.com {
+  proxy / localhost:8081 {
+    transparent
+  }
+
+  tls {
+    dns cloudflare
+  }
+}
+

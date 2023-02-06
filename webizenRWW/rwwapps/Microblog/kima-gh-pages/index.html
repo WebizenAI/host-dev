@@ -1,0 +1,444 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="CimbaApp">
+<head>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8"> 
+<meta charset="utf-8">
+<title>Kima</title>
+<meta name="generator" content="Cimba">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<!-- prod
+<link href="//netdna.bootstrapcdn.com/bootstrap/3.0.2/css/bootstrap.min.css" rel="stylesheet">
+-->
+<link href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css" rel="stylesheet">
+
+<!-- dev -->
+<link href="dev/css/bootstrap.min.css" rel="stylesheet">
+<!-- local -->
+<link href="css/style.css" rel="stylesheet">
+<link href="css/proxima-nova.css" rel="stylesheet">
+
+
+<!-- prod
+<script type='text/javascript' src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+<script type='text/javascript' src="//netdna.bootstrapcdn.com/bootstrap/3.0.2/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jqueryui/1/jquery-ui.js"></script>
+-->
+<!-- dev -->
+<script type='text/javascript' src="dev/js/jquery.min.js"></script>
+<script type='text/javascript' src="dev/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="dev/js/jquery-ui.js"></script>
+
+<script src="dev/js/angular.min.js"></script>
+<script src="dev/js/angular-ui.min.js"></script> 
+<script src="dev/js/rdflib.js"></script> 
+<!-- local -->
+<script type='text/javascript' src="js/jquery.notify.js"></script>
+<!-- <script type='text/javascript' src="js/rdflib.min.js"></script> -->
+<script type='text/javascript' src="js/common.js"></script>
+<script type="text/javascript" src="js/moment.min.js"></script>
+<script type='text/javascript' src="js/app.js"></script>
+
+<!--[if lt IE 9]>
+  <script src="//html5shim.googlecode.com/svn/trunk/html5.js"></script>
+<![endif]-->
+    
+<link rel="shortcut icon" type="img/png" href="favicon.png">
+</head>
+    
+<body ng-cloak>
+<div ng-controller="CimbaCtrl">
+    <div class="navbar navbar-default" id="subnav">
+        <div class="col-md-12">
+            <div class="navbar-header">
+                <img src="img/kima-logo.png" class="logo">                
+                <button id="menuToggle" type="button" class="navbar-toggle pull-right" data-toggle="collapse" data-target="#navbar-collapse2">
+                    <span class="sr-only">Toggle navigation</span>
+                    <i class="fa fa-bars fa-2x blue"></i>
+                </button>
+<!-- TODO!
+                <div ng-show="me.pic" class="user-thumb"><a href="{{me.webid}}" target="_blank"><img class="r3" src="{{me.pic}}" rel="tooltip" data-placement="top" title="{{me.name}}"></a></div>
+-->
+            </div>
+
+            <div class="collapse navbar-collapse" id="navbar-collapse2">
+              <ul class="nav navbar-nav navbar-right">
+                  <li ng-show="loggedin"><a href="#subsModal" role="button" data-toggle="modal"><i class="fa fa-rss"></i> Channels</a></li>
+                  <li ng-hide="!me.channels[0]"><a href="#" ng-click="updatePosts()"><i class="fa fa-refresh"></i> Refresh </a></li>
+                  <!-- QCRI Filtering Start -->
+				          <li ng-hide="!me.channels[0]" ng-class="filterFlag==true?'active':''" rel="tooltip" data-placement="top" title="Toggle language filter"><a href="#" ng-click="toggleFilter()"><i class="fa fa-filter"></i> {{languageFilter}}</a></li>
+                  <!-- QCRI Filtering End -->
+				          <li ng-hide="loggedin"><a href="#loginModal" role="button" data-toggle="modal"><i class="fa fa-sign-in"></i> Login</a></li>
+                  <li ng-show="loggedin"><a href="#" ng-click="clearSession()" role="button"><i class="fa fa-sign-out"></i> Logout</a></li>
+              </ul>
+            </div>
+        </div>	
+    </div>
+
+    <!--main-->
+
+    <!-- new post box -->
+    <post-box></post-box>    
+
+    <!-- spinner -->
+    <div id="loader" class="container" ng-show="loading">
+        <div class="row">
+            <div class="col-md-12">
+                <!-- Loading animation -->
+                <!-- <div class="spinner"> -->
+                <div class="clear-40">
+                  <div class="circle circle-large"></div><div class="circle1 circle1-large"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- WebID authentication failed/missing -->
+    <div id="setup" class="container" ng-show="testwebid">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="panel panel-default"> 
+                    <div class="panel-heading dark-blue">
+                      &nbsp;
+                    </div>
+                    <div class="panel-body">
+                        <div class="panel-body">
+                          <h2 class="text-center">We were unable to authentify you using WebID-TLS!</h2>
+                          <div class="text-center">
+                            <a href="https://auth.my-profile.eu/auth/index.php?verbose=on" target="_blank"><button class="btn btn-primary btn-sep-right">Test your WebID</button></a>
+                            <a href="#loginModal" role="button" data-toggle="modal"><button class="btn btn-primary">Sign up for a WebID</button></a>
+                          </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- login/signup -->
+    <div id="setup" class="container" ng-show="!me.webid">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="panel panel-default"> 
+                    <div class="panel-heading dark-blue">
+                      &nbsp;
+                    </div>
+                    <div class="panel-body">
+                        <div class="panel-body">
+                          <h2 class="text-center">Welcome to <img src="img/kima-logo.png" height="50"></h2>
+                          <div class="text-center">
+                            <h3>You must be authenticated in order to use this microblogging application.</h3>
+                            <a href="#loginModal" role="button" data-toggle="modal"><button class="btn btn-primary btn-sep-right">Login / Sign Up</button></a>
+                          </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- new storage modal -->
+    <div id="setup" class="container" ng-show="me.webid && !me.storagespace">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="panel panel-default text-center">
+                    <h3>Hi {{me.name}}! We could not find a shared storage space in your WebID profile.</h3>
+                    <p><a href="#newStorageModal" role="button" data-toggle="modal"><button class="btn btn-primary">Please provide one here</button></a></p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- new uB modal -->
+    <div id="setup" class="container" ng-show="me.webid && me.storagespace && me.mbspace == false">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="panel panel-default text-center">
+                    <h3>To start using Kima, you will need a microblogging space.</h3>
+                    <p><a href="#newMBModal" role="button" data-toggle="modal"><button class="btn btn-primary">Click here to create one</button></a></p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- no channels found -->
+    <div id="setup" class="container" ng-show="me.webid && me.storagespace && me.mbspace && me.chspace == false">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="panel panel-default text-center">
+                    <h3>You're almost there! Now you just need to create a channel for your posts.</h3>
+                    <p><a href="#newChannelModal" role="button" data-toggle="modal"><button class="btn btn-primary">Click here to create a channel</button></a></p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- no posts found -->
+    <div id="setup" class="container" ng-show="me.webid && me.storagespace && me.mbspace && me.chspace && isEmpty(posts)">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="panel panel-default text-center">
+                    <h3>You haven't posted anything. Try writing a new post or <a href="#subscribeModal" role="button" data-toggle="modal"><button class="btn btn-primary"><i class="fa fa-rss white"></i> subscribe</button></a> to someone's channels!</h3>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- posts viewer - all posts go into <posts-viewer> -->
+    <posts-viewer ng-show="loggedin"></posts-viewer>
+
+    <!--new storage modal-->
+    <div id="newStorageModal" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
+      <div class="modal-dialog">
+          <div class="modal-content">
+              <div class="modal-header">
+                  <button type="button" class="close white" data-dismiss="modal" aria-hidden="true">x</button>
+                  <h3 class="text-center">Provide a URI for your storage</h3>
+              </div>
+              <div class="modal-body">
+                  <form class="m10">
+                      <p><small class="white">Full storage location URI. Must start with http(s)://</small></p>
+                      <input type="text" id="storageuri" name="storageuri" ng-model="storageuri" class="form-control" placeholder="http.." required ng-pattern="/^http[A-Za-z0-9_.:/]*$/">
+                    <div ng-show="storageuri" class="text-center">
+                      <br>
+                      <p>Alternatively, if your WebID profile is not Web writable, you can manually add the following triple at the end of your profile:</p>
+                      <br>
+                      <textarea class="triples"><{{me.webid}}>
+        <http://www.w3.org/ns/pim/space#storage>
+            <{{storageuri}}> .</textarea>
+                    </div>
+                  </form>
+              </div>
+              <div class="modal-footer">
+                  <div class="col-md-12">
+                      <button class="btn btn-info btn-sep-right" data-dismiss="modal" aria-hidden="true">Close</button>
+                      <button class="btn btn-primary" ng-click="newStorage()" ng-disabled="!storageuri">{{addstoragebtn}}</button>
+                  </div>  
+              </div>      
+          </div>
+      </div>
+    </div>
+
+    <!--new microblogging workspace modal-->
+    <div id="newMBModal" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
+      <div class="modal-dialog">
+          <div class="modal-content">
+              <div class="modal-header">                 
+                  <button type="button" class="close white" data-dismiss="modal" aria-hidden="true">x</button>              
+                  <h3 class="text-center">Create a new microblog</h3>
+              </div>
+              <div class="modal-body">
+                  <form class="m10">
+                      <input type="text" id="mburi" name="mburi" ng-model="mburi" class="form-control" placeholder="mb, blog, etc.." required ng-pattern="/^[A-Za-z0-9_]*$/">
+                  </form>
+              </div>
+              <div class="modal-footer">
+                  <div class="col-md-12">
+                      <button class="btn btn-info btn-sep-right" data-dismiss="modal" aria-hidden="true">Close</button>
+                      <button class="btn btn-primary" ng-click="newMB()" ng-disabled="!mburi">{{createbtn}}</button>
+                  </div>  
+              </div>
+          </div>
+      </div>
+    </div>
+
+    <!--new channel modal-->
+    <div id="newChannelModal" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
+      <div class="modal-dialog">
+          <div class="modal-content">
+              <div class="modal-header">
+                  <button type="button" class="close white" data-dismiss="modal" aria-hidden="true">x</button>
+                  <h2 class="text-center">Create a new channel</h2>
+              </div>
+              <div class="modal-body">
+                  <form class="m10">
+                  <p>The name you provide will be used to create a new channel inside your microblog.</p>                  
+                  <p><input type="text" id="channelname" name="channelname" ng-model="channelname" class="form-control" placeholder="Name (Main, Work, etc.).." required ng-pattern="/^[A-Za-z0-9_ ]*$/"></p>
+                  <div class="btn-group">
+                      <button id="audience" class="btn btn-primary" disabled><i class="fa {{audience.icon}} fa-2x white"></i></button><button class="btn dropdown-toggle" data-toggle="dropdown" data-target="#" href="#"> <small class="drop" rel="tooltip" data-placement="top" title="Audience"><i class="fa fa-chevron-down fa-2x"></i></small></button>
+                      <ul class="dropdown-menu" role="menu" aria-labelledby="audience">
+                          <li><a href="#" ng-click="setAudience('public')"><i id="public" class="fa fa-globe fa-2x blue"></i> Public</a></li>
+                          <li><a href="#" ng-click="setAudience('private')">&nbsp;<i id="private" class="fa fa-lock fa-2x blue"></i>&nbsp; Private</a></li>
+                      </ul>
+                  </div>
+                  </form>
+              </div>
+              <div class="modal-footer">
+                  <div class="col-md-12">
+                      <button class="btn btn-info btn-sep-right" data-dismiss="modal" aria-hidden="true">Close</button>
+                      <button class="btn btn-primary" ng-click="newChannel()" ng-disabled="!channelname">{{createbtn}}</button>
+                  </div>  
+              </div>
+          </div>
+      </div>
+    </div>
+
+    <!--channels modal-->
+    <div id="subsModal" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header text-center">
+                    <button type="button" class="close white" data-dismiss="modal" aria-hidden="true">x</button>
+                    <h2 class="text-center"><i class="fa fa-rss"></i>  Manage channels</h2>
+                    <a href="#newChannelModal" role="button" data-toggle="modal" onclick="$('#subsModal').modal('hide')"><button class="btn btn-primary btn-sep-right"><i class="fa fa-plus"></i> New channel</button></a>
+                    <a href="#subscribeModal" role="button" data-toggle="modal" ><button class="btn btn-primary btn-sep-right"><i class="fa fa-search"></i> Search by WebID</button></a>
+                    <h2 class="text-center">Available channels:</h2>
+                </div>
+                <div class="modal-body">
+                    <channelslist></channelslist>
+                </div>
+                <div class="modal-footer">
+                    <div class="col-md-12">
+                        <button class="btn btn-info" data-dismiss="modal" aria-hidden="true">Close</button>
+                    </div>  
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!--subscribe modal-->
+    <div id="subscribeModal" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close white" data-dismiss="modal" aria-hidden="true">x</button>
+                    <h2 class="text-center"><i class="fa fa-search"></i> Find channels</h2>
+                    <form>
+                        <p>Please provide the WebID for the channel owner.</p>
+                        <div class="input-group">
+                            <div class="input-group-btn text-center">
+                              <input type="search" id="searchwebid" name="searchwebid" class="form-control" ng-model="searchwebid" ng-pattern="/^http[A-Za-z0-9_#.:/]*$/">
+                              <button class="btn btn-primary searchbutton" ng-click="getInfo(searchwebid); searchbtn='Searching...'" ng-disabled="!searchwebid"><i class="fa fa-search"></i> {{searchbtn}}</button>
+                            </div>
+                        </div>
+                        <h4 class="black text-center" ng-show="!found">No WebID found at given location.</h4>
+                    </form>
+                </div>
+                <div class="modal-body">
+                    <div class="searchresults" ng-show="gotresults">
+                        <div class="panel-heading dark-blue">
+                            <div class="pull-left">
+                                <a href="{{search.webid}}" target="_blank">
+                                    <img class="media-object thumb-pic" ng-src="{{search.pic}}" rel="tooltip" data-placement="top" title="{{search.name}}">
+                                </a>
+                            </div>
+                            <div class="pull-left user-name">
+                                <h4>{{search.name}}</h4>
+                            </div>
+                        </div>
+                        <div class="panel-body">
+                            <h4>Has {{search.channels.length}} channels.</h4>
+                            <h4 ng-repeat="ch in search.channels">
+                                <button class="btn" ng-class="ch.css" ng-click="channelToggle(ch, search)" rel="tooltip" data-placement="top" title="{{ch.action}}"><i class="fa {{ch.button}} fa-2x"></i></button>
+                                <a href="{{ch.uri}}" target="_blank">{{ch.title}}</a>
+                            </h4>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <div class="col-md-12">
+                        <button class="btn btn-info" data-dismiss="modal" aria-hidden="true">Close</button>
+                    </div>  
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+<!-- bottom -->
+<div class="col-md-12 text-center">
+    <p>Powered by <a href="https://github.com/rww-apps/kima" target="_blank">Kima</a> v1.0 alpha | <a href="https://github.com/rww-apps/kima/issues" target="_blank">Bug tracker</a> | <a href="#aboutModal" role="button" data-toggle="modal">About</a></p>
+</div>
+<!--/main-->
+
+<!-- set the notifications container hidden when the page first loads -->
+<div id="notification" style="display:none">
+    <div id="basic-template">
+        <a class="ui-notify-cross ui-notify-close" href="#">x</a>
+        <h1>#{title}</h1>
+        <p>#{text}</p>
+    </div>
+</div>
+
+<!-- OTHER -->
+
+<!--about modal-->
+<div id="aboutModal" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
+  <div class="modal-dialog">
+  <div class="modal-content">
+      <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+          <h2 class="text-center">About</h2>
+      </div>
+      <div class="modal-body">
+          <div class="col-md-12 text-center">
+            <h3>This microblogging app is powered by Kima v1.0 alpha</h3>
+            <br>
+            <h3><a href="https://github.com/rww-apps/kima" target="_blank">Fork on GitHub</a></h3>
+          </div>
+      </div>
+      <div class="modal-footer">
+          <button class="btn btn-info btn-sep-right" data-dismiss="modal" aria-hidden="true">Close</button>
+      </div>
+  </div>
+  </div>
+</div>
+
+<!--login modal-->
+<div id="loginModal" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
+  <div class="modal-dialog">
+  <div class="modal-content">
+      <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+          <h2 class="text-center">Login / Sign Up</h2>
+      </div>
+      <div class="modal-body text-center">         
+          <iframe id="signup" src="" sandbox="allow-same-origin allow-scripts allow-forms" frameborder="0"></iframe>
+      </div>
+      <div class="modal-footer">
+          <div class="col-md-12">
+              <button class="btn btn-info" data-dismiss="modal" aria-hidden="true">Close</button>
+          </div>  
+      </div>
+  </div>
+  </div>
+</div>
+
+<script type='text/javascript'>
+$(document).ready(function() {
+    /* toggle layout */
+    $('#btnToggle').click(function(){
+        if ($(this).hasClass('on')) {
+            $('#main .col-md-6').addClass('col-md-4').removeClass('col-md-6');
+            $(this).removeClass('on');
+        }
+        else {
+            $('#main .col-md-4').addClass('col-md-6').removeClass('col-md-4');
+            $(this).addClass('on');
+        }
+    });
+    // auto close menu after click
+    $('#navbar-collapse2').click(function () {
+        if (!$("#menuToggle").hasClass('collapsed')) {
+            $('.navbar-collapse').collapse('hide');
+        }
+    });
+
+    // load login/signup
+    //$('#login-body').load("//example.org/onboard/signup.html");
+    //angular.bootstrap(document.getElementById('ob-app'), ['ob-app']);
+
+    // init tooltip plugin
+    $('#audience').tooltip();
+
+    // login/signup widget source
+    var providerURI = '//linkeddata.github.io/signup/index.html?ref=';
+    
+    // set the parameter in the src of iframe
+    document.getElementById('signup').src = providerURI+window.location.protocol+'//'+window.location.host;
+    //document.getElementById('directLogin').href = providerURI+window.location.protocol+'//'+window.location.host+'#login';
+    //document.getElementById('directSignup').href = providerURI+window.location.protocol+'//'+window.location.host+'#signup';
+});
+</script>
+
+</body>
+</html>

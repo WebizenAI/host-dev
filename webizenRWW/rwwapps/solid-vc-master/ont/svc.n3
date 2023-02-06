@@ -1,0 +1,160 @@
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix foaf: <http://xmlns.com/foaf/0.1/> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix dcterms: <http://dublincore.org/2012/06/14/dcterms#> .
+@prefix dcelements: <http://dublincore.org/2012/06/14/dcelements#> .
+@prefix sec: <https://w3id.org/security#> .
+@prefix vc: <https://w3id.org/credentials/v1#> .
+@prefix svc: <http://dig.csail.mit.edu/2018/svc#> .
+
+<http://dig.csail.mit.edu/2018/svc#> a owl:Ontology ;
+    dcterms:title "The Solid Verifiable Credentials Schema Vocabulary"@en ;
+    rdfs:comment """
+    This ontology describes the classes and properties that are key
+    to the SolidVC ecosystem. The design is intentionally terse and
+    focused in order to allow for a relatively simple interface for
+    the production and consumption of verifiable credentials.
+    
+    This ontology was developed by Kayode Ezike (kezike17@mit.edu)
+    as a component of his MEng thesis work with DIG.
+    """@en .
+
+svc:Credential a rdfs:Class ;
+    rdfs:isDefinedBy <http://dig.csail.mit.edu/2018/svc#> ;
+    rdfs:subClassOf rdfs:Resource ;
+    rdfs:label "Credential"@en ;
+    rdfs:comment "The class representing a credential in the form of groups of statements and attestations about an entity"@en .
+
+svc:id a rdf:Property ;
+    rdfs:isDefinedBy <http://dig.csail.mit.edu/2018/svc#> ;
+    rdfs:label "id"@en ;
+    rdfs:comment "The ID (likely URI; may be superfluous) of a credential"@en ;
+    rdfs:domain svc:Credential ;
+    rdfs:range rdfs:Literal .
+
+svc:plain a rdf:Property ;
+    rdfs:isDefinedBy <http://dig.csail.mit.edu/2018/svc#> ;
+    rdfs:label "plain"@en ;
+    rdfs:comment "The plaintext RDF graph representing a credential"@en ;
+    rdfs:domain svc:Credential ;
+    rdfs:range rdfs:Resource .
+
+svc:domain a rdf:Property ;
+    rdfs:isDefinedBy <http://dig.csail.mit.edu/2018/svc#> ;
+    rdfs:label "domain"@en ;
+    rdfs:comment "The domain of a credential (e.g., 'HEALTH', 'LAW', 'TRAVEL', 'GENERAL')"@en ;
+    rdfs:domain svc:Credential ;
+    rdfs:range rdfs:Literal .
+
+svc:title a rdf:Property ;
+    rdfs:isDefinedBy <http://dig.csail.mit.edu/2018/svc#> ;
+    rdfs:label "title"@en ;
+    rdfs:comment "The title briefly describing a credential (e.g., 'MEng. Credential Request for Kayode Ezike')"@en ;
+    rdfs:domain svc:Credential ;
+    rdfs:range rdfs:Literal .
+
+svc:description a rdf:Property ;
+    rdfs:isDefinedBy <http://dig.csail.mit.edu/2018/svc#> ;
+    rdfs:label "description"@en ;
+    rdfs:comment "An optional description of a credential request"@en ;
+    rdfs:domain svc:Credential ;
+    rdfs:range rdfs:Literal .
+
+svc:messageStatus a rdf:Property ;
+    rdfs:isDefinedBy <http://dig.csail.mit.edu/2018/svc#> ;
+    rdfs:label "messageStatus"@en ;
+    rdfs:comment "Status of message (e.g., 'APPROVED', 'DECLINED')"@en ;
+    rdfs:domain svc:Credential ;
+    rdfs:range rdfs:Literal .
+
+svc:messageType a rdf:Property ;
+    rdfs:isDefinedBy <http://dig.csail.mit.edu/2018/svc#> ;
+    rdfs:label "messageType"@en ;
+    rdfs:comment "Type of message (e.g., 'REQUEST', 'ISSUANCE', 'ASSERTION', 'VERIFICATION', 'INQUIRY', 'MISCELLANEOUS')"@en ;
+    rdfs:domain svc:Credential ;
+    rdfs:range rdfs:Literal .
+    
+svc:issuerId a rdf:Property ;
+    rdfs:isDefinedBy <http://dig.csail.mit.edu/2018/svc#> ;
+    rdfs:label "issuerId"@en ;
+    rdfs:comment "The ID of the issuer of a credential (e.g., 'https://kezike.solid.community/profile/card#me')"@en ;
+    rdfs:domain svc:Credential ;
+    rdfs:range rdfs:Literal .
+
+svc:issuanceDate a rdf:Property ;
+    rdfs:isDefinedBy <http://dig.csail.mit.edu/2018/svc#> ;
+    rdfs:label "issuanceDate"@en ;
+    rdfs:comment "The issuance date of a credential"@en ;
+    rdfs:domain svc:Credential ;
+    rdfs:range xsd:dateTime .
+
+svc:subjectId a rdf:Property ;
+    rdfs:isDefinedBy <http://dig.csail.mit.edu/2018/svc#> ;
+    rdfs:label "subjectId"@en ;
+    rdfs:comment "The ID of the subject of a credential (e.g., 'https://kezike.solid.community/profile/card#me')"@en ;
+    rdfs:domain svc:Credential ;
+    rdfs:range rdfs:Literal .
+
+svc:publicKey a rdf:Property ;
+    rdfs:isDefinedBy <http://dig.csail.mit.edu/2018/svc#> ;
+    rdfs:label "publicKey"@en ;
+    rdfs:comment "The URI of the public key of the subject of a credential (similar to sec:publicKey)"@en ;
+    rdfs:domain foaf:PersonalProfileDocument ;
+    rdfs:range rdfs:Literal .
+
+svc:revocationList a rdf:Property ;
+    rdfs:isDefinedBy <http://dig.csail.mit.edu/2018/svc#> ;
+    rdfs:label "revocationList"@en ;
+    rdfs:comment "The URI of the revocation list of a user (similar to vc:credentialStatus)"@en ;
+    rdfs:domain foaf:PersonalProfileDocument ;
+    rdfs:range rdfs:Literal .
+
+svc:proof a rdf:Property ;
+    rdfs:isDefinedBy <http://dig.csail.mit.edu/2018/svc#> ;
+    rdfs:label "proof"@en ;
+    rdfs:comment """
+    The digital proof verifying a credential (similar to sec:proof):
+    - 'type': The proof type (e.g., sec:RsaSignature2018)
+    - 'created': The timestamp of the creation of a credential
+    - 'creator': The public key of the issuer of a credential
+    - 'nonce': Optional value proving effort in proof creation
+    - 'signatureValue': The creator's signature of plain
+    """@en ;
+    rdfs:domain svc:Credential ;
+    rdfs:range rdfs:Literal .
+
+svc:CredentialStatusList a rdfs:Class ;
+    rdfs:isDefinedBy <http://dig.csail.mit.edu/2018/svc#> ;
+    rdfs:subClassOf svc:Credential ;
+    rdfs:label "CredentialStatusList"@en ;
+    rdfs:comment "The class representing a credential status in the form of groups of statements and attestations about a credential (similar to vc:CredentialStatusList2017)"@en .
+
+svc:credentialStatus a rdf:Property ;
+    rdfs:isDefinedBy <http://dig.csail.mit.edu/2018/svc#> ;
+    rdfs:label "credentialStatus"@en ;
+    rdfs:comment "Status of a credential (e.g., 'ACTIVE', 'EXPIRED', 'REVOKED')"@en ;
+    rdfs:domain svc:CredentialStatusList ;
+    rdfs:range rdfs:Literal .
+
+svc:credentialId a rdf:Property ;
+    rdfs:isDefinedBy <http://dig.csail.mit.edu/2018/svc#> ;
+    rdfs:label "credentialId"@en ;
+    rdfs:comment "ID of a credential"@en ;
+    rdfs:domain svc:CredentialStatusList ;
+    rdfs:range rdfs:Literal .
+
+svc:revocationReason a rdf:Property ;
+    rdfs:isDefinedBy <http://dig.csail.mit.edu/2018/svc#> ;
+    rdfs:label "revocationReason"@en ;
+    rdfs:comment "Reasoning behind credential revocation"@en ;
+    rdfs:domain svc:CredentialStatusList ;
+    rdfs:range rdfs:Literal .
+
+svc:revocationDate a rdf:Property ;
+    rdfs:isDefinedBy <http://dig.csail.mit.edu/2018/svc#> ;
+    rdfs:label "revocationDate"@en ;
+    rdfs:comment "Date of credential revocation"@en ;
+    rdfs:domain svc:CredentialStatusList ;
+    rdfs:range xsd:dateTime .

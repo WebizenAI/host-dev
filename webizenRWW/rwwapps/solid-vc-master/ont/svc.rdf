@@ -1,0 +1,181 @@
+
+<!-- Processed by Id: cwm.py,v 1.197 2007/12/13 15:38:39 syosi Exp -->
+<!--     using base file:///Users/kayodeezike/Documents/MEng/dig/solid-vc/ont/svc.n3-->
+
+
+<rdf:RDF xmlns="http://www.w3.org/2000/01/rdf-schema#"
+    xmlns:dcterms="http://dublincore.org/2012/06/14/dcterms#"
+    xmlns:owl="http://www.w3.org/2002/07/owl#"
+    xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+    xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#">
+
+    <owl:Ontology rdf:about="http://dig.csail.mit.edu/2018/svc#">
+        <dcterms:title xml:lang="en">The Solid Verifiable Credentials Schema Vocabulary</dcterms:title>
+        <comment xml:lang="en">
+    This ontology describes the classes and properties that are key
+    to the SolidVC ecosystem. The design is intentionally terse and
+    focused in order to allow for a relatively simple interface for
+    the production and consumption of verifiable credentials.
+    
+    This ontology was developed by Kayode Ezike (kezike17@mit.edu)
+    as a component of his MEng thesis work with DIG.
+    </comment>
+    </owl:Ontology>
+
+    <Class rdf:about="http://dig.csail.mit.edu/2018/svc#Credential">
+        <comment xml:lang="en">The class representing a credential in the form of groups of statements and attestations about an entity</comment>
+        <isDefinedBy rdf:resource="http://dig.csail.mit.edu/2018/svc#"/>
+        <label xml:lang="en">Credential</label>
+        <subClassOf rdf:resource="http://www.w3.org/2000/01/rdf-schema#Resource"/>
+    </Class>
+
+    <Class rdf:about="http://dig.csail.mit.edu/2018/svc#CredentialStatusList">
+        <comment xml:lang="en">The class representing a credential status in the form of groups of statements and attestations about a credential (similar to vc:CredentialStatusList2017)</comment>
+        <isDefinedBy rdf:resource="http://dig.csail.mit.edu/2018/svc#"/>
+        <label xml:lang="en">CredentialStatusList</label>
+        <subClassOf rdf:resource="http://dig.csail.mit.edu/2018/svc#Credential"/>
+    </Class>
+
+    <rdf:Property rdf:about="http://dig.csail.mit.edu/2018/svc#credentialId">
+        <comment xml:lang="en">ID of a credential</comment>
+        <domain rdf:resource="http://dig.csail.mit.edu/2018/svc#CredentialStatusList"/>
+        <isDefinedBy rdf:resource="http://dig.csail.mit.edu/2018/svc#"/>
+        <label xml:lang="en">credentialId</label>
+        <range rdf:resource="http://www.w3.org/2000/01/rdf-schema#Literal"/>
+    </rdf:Property>
+
+    <rdf:Property rdf:about="http://dig.csail.mit.edu/2018/svc#credentialStatus">
+        <comment xml:lang="en">Status of a credential (e.g., 'ACTIVE', 'EXPIRED', 'REVOKED')</comment>
+        <domain rdf:resource="http://dig.csail.mit.edu/2018/svc#CredentialStatusList"/>
+        <isDefinedBy rdf:resource="http://dig.csail.mit.edu/2018/svc#"/>
+        <label xml:lang="en">credentialStatus</label>
+        <range rdf:resource="http://www.w3.org/2000/01/rdf-schema#Literal"/>
+    </rdf:Property>
+
+    <rdf:Property rdf:about="http://dig.csail.mit.edu/2018/svc#description">
+        <comment xml:lang="en">An optional description of a credential request</comment>
+        <domain rdf:resource="http://dig.csail.mit.edu/2018/svc#Credential"/>
+        <isDefinedBy rdf:resource="http://dig.csail.mit.edu/2018/svc#"/>
+        <label xml:lang="en">description</label>
+        <range rdf:resource="http://www.w3.org/2000/01/rdf-schema#Literal"/>
+    </rdf:Property>
+
+    <rdf:Property rdf:about="http://dig.csail.mit.edu/2018/svc#domain">
+        <comment xml:lang="en">The domain of a credential (e.g., 'HEALTH', 'LAW', 'TRAVEL', 'GENERAL')</comment>
+        <domain rdf:resource="http://dig.csail.mit.edu/2018/svc#Credential"/>
+        <isDefinedBy rdf:resource="http://dig.csail.mit.edu/2018/svc#"/>
+        <label xml:lang="en">domain</label>
+        <range rdf:resource="http://www.w3.org/2000/01/rdf-schema#Literal"/>
+    </rdf:Property>
+
+    <rdf:Property rdf:about="http://dig.csail.mit.edu/2018/svc#id">
+        <comment xml:lang="en">The ID (likely URI; may be superfluous) of a credential</comment>
+        <domain rdf:resource="http://dig.csail.mit.edu/2018/svc#Credential"/>
+        <isDefinedBy rdf:resource="http://dig.csail.mit.edu/2018/svc#"/>
+        <label xml:lang="en">id</label>
+        <range rdf:resource="http://www.w3.org/2000/01/rdf-schema#Literal"/>
+    </rdf:Property>
+
+    <rdf:Property rdf:about="http://dig.csail.mit.edu/2018/svc#issuanceDate">
+        <comment xml:lang="en">The issuance date of a credential</comment>
+        <domain rdf:resource="http://dig.csail.mit.edu/2018/svc#Credential"/>
+        <isDefinedBy rdf:resource="http://dig.csail.mit.edu/2018/svc#"/>
+        <label xml:lang="en">issuanceDate</label>
+        <range rdf:resource="http://www.w3.org/2001/XMLSchema#dateTime"/>
+    </rdf:Property>
+
+    <rdf:Property rdf:about="http://dig.csail.mit.edu/2018/svc#issuerId">
+        <comment xml:lang="en">The ID of the issuer of a credential (e.g., 'https://kezike.solid.community/profile/card#me')</comment>
+        <domain rdf:resource="http://dig.csail.mit.edu/2018/svc#Credential"/>
+        <isDefinedBy rdf:resource="http://dig.csail.mit.edu/2018/svc#"/>
+        <label xml:lang="en">issuerId</label>
+        <range rdf:resource="http://www.w3.org/2000/01/rdf-schema#Literal"/>
+    </rdf:Property>
+
+    <rdf:Property rdf:about="http://dig.csail.mit.edu/2018/svc#messageStatus">
+        <comment xml:lang="en">Status of message (e.g., 'APPROVED', 'DECLINED')</comment>
+        <domain rdf:resource="http://dig.csail.mit.edu/2018/svc#Credential"/>
+        <isDefinedBy rdf:resource="http://dig.csail.mit.edu/2018/svc#"/>
+        <label xml:lang="en">messageStatus</label>
+        <range rdf:resource="http://www.w3.org/2000/01/rdf-schema#Literal"/>
+    </rdf:Property>
+
+    <rdf:Property rdf:about="http://dig.csail.mit.edu/2018/svc#messageType">
+        <comment xml:lang="en">Type of message (e.g., 'REQUEST', 'ISSUANCE', 'ASSERTION', 'VERIFICATION', 'INQUIRY', 'MISCELLANEOUS')</comment>
+        <domain rdf:resource="http://dig.csail.mit.edu/2018/svc#Credential"/>
+        <isDefinedBy rdf:resource="http://dig.csail.mit.edu/2018/svc#"/>
+        <label xml:lang="en">messageType</label>
+        <range rdf:resource="http://www.w3.org/2000/01/rdf-schema#Literal"/>
+    </rdf:Property>
+
+    <rdf:Property rdf:about="http://dig.csail.mit.edu/2018/svc#plain">
+        <comment xml:lang="en">The plaintext RDF graph representing a credential</comment>
+        <domain rdf:resource="http://dig.csail.mit.edu/2018/svc#Credential"/>
+        <isDefinedBy rdf:resource="http://dig.csail.mit.edu/2018/svc#"/>
+        <label xml:lang="en">plain</label>
+        <range rdf:resource="http://www.w3.org/2000/01/rdf-schema#Resource"/>
+    </rdf:Property>
+
+    <rdf:Property rdf:about="http://dig.csail.mit.edu/2018/svc#proof">
+        <comment xml:lang="en">
+    The digital proof verifying a credential (similar to sec:proof):
+    - 'type': The proof type (e.g., sec:RsaSignature2018)
+    - 'created': The timestamp of the creation of a credential
+    - 'creator': The public key of the issuer of a credential
+    - 'nonce': Optional value proving effort in proof creation
+    - 'signatureValue': The creator's signature of plain
+    </comment>
+        <domain rdf:resource="http://dig.csail.mit.edu/2018/svc#Credential"/>
+        <isDefinedBy rdf:resource="http://dig.csail.mit.edu/2018/svc#"/>
+        <label xml:lang="en">proof</label>
+        <range rdf:resource="http://www.w3.org/2000/01/rdf-schema#Literal"/>
+    </rdf:Property>
+
+    <rdf:Property rdf:about="http://dig.csail.mit.edu/2018/svc#publicKey">
+        <comment xml:lang="en">The URI of the public key of the subject of a credential (similar to sec:publicKey)</comment>
+        <domain rdf:resource="http://xmlns.com/foaf/0.1/PersonalProfileDocument"/>
+        <isDefinedBy rdf:resource="http://dig.csail.mit.edu/2018/svc#"/>
+        <label xml:lang="en">publicKey</label>
+        <range rdf:resource="http://www.w3.org/2000/01/rdf-schema#Literal"/>
+    </rdf:Property>
+
+    <rdf:Property rdf:about="http://dig.csail.mit.edu/2018/svc#revocationDate">
+        <comment xml:lang="en">Date of credential revocation</comment>
+        <domain rdf:resource="http://dig.csail.mit.edu/2018/svc#CredentialStatusList"/>
+        <isDefinedBy rdf:resource="http://dig.csail.mit.edu/2018/svc#"/>
+        <label xml:lang="en">revocationDate</label>
+        <range rdf:resource="http://www.w3.org/2001/XMLSchema#dateTime"/>
+    </rdf:Property>
+
+    <rdf:Property rdf:about="http://dig.csail.mit.edu/2018/svc#revocationList">
+        <comment xml:lang="en">The URI of the revocation list of a user (similar to vc:credentialStatus)</comment>
+        <domain rdf:resource="http://xmlns.com/foaf/0.1/PersonalProfileDocument"/>
+        <isDefinedBy rdf:resource="http://dig.csail.mit.edu/2018/svc#"/>
+        <label xml:lang="en">revocationList</label>
+        <range rdf:resource="http://www.w3.org/2000/01/rdf-schema#Literal"/>
+    </rdf:Property>
+
+    <rdf:Property rdf:about="http://dig.csail.mit.edu/2018/svc#revocationReason">
+        <comment xml:lang="en">Reasoning behind credential revocation</comment>
+        <domain rdf:resource="http://dig.csail.mit.edu/2018/svc#CredentialStatusList"/>
+        <isDefinedBy rdf:resource="http://dig.csail.mit.edu/2018/svc#"/>
+        <label xml:lang="en">revocationReason</label>
+        <range rdf:resource="http://www.w3.org/2000/01/rdf-schema#Literal"/>
+    </rdf:Property>
+
+    <rdf:Property rdf:about="http://dig.csail.mit.edu/2018/svc#subjectId">
+        <comment xml:lang="en">The ID of the subject of a credential (e.g., 'https://kezike.solid.community/profile/card#me')</comment>
+        <domain rdf:resource="http://dig.csail.mit.edu/2018/svc#Credential"/>
+        <isDefinedBy rdf:resource="http://dig.csail.mit.edu/2018/svc#"/>
+        <label xml:lang="en">subjectId</label>
+        <range rdf:resource="http://www.w3.org/2000/01/rdf-schema#Literal"/>
+    </rdf:Property>
+
+    <rdf:Property rdf:about="http://dig.csail.mit.edu/2018/svc#title">
+        <comment xml:lang="en">The title briefly describing a credential (e.g., 'MEng. Credential Request for Kayode Ezike')</comment>
+        <domain rdf:resource="http://dig.csail.mit.edu/2018/svc#Credential"/>
+        <isDefinedBy rdf:resource="http://dig.csail.mit.edu/2018/svc#"/>
+        <label xml:lang="en">title</label>
+        <range rdf:resource="http://www.w3.org/2000/01/rdf-schema#Literal"/>
+    </rdf:Property>
+</rdf:RDF>

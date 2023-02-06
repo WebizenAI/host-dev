@@ -1,0 +1,230 @@
+@prefix : <#>.
+@prefix ui: <http://www.w3.org/ns/ui#>.
+@prefix new: <https://news.ycombinator.com/>.
+@prefix l: <https://www.smithsonianmag.com/rss/latest_articles/>.
+@prefix rs: <http://rss.sciam.com/>.
+@prefix feed: <https://news.climate.columbia.edu/feed/>.
+@prefix fee: <https://feeds.feedburner.com/>.
+@prefix feeds: <https://www.livescience.com/feeds/>.
+@prefix r: <http://feeds.nature.com/ncomms/rss/>.
+@prefix fe: <https://feeds2.feedburner.com/>.
+@prefix f: <https://www.wired.com/feed/>.
+@prefix blog: <https://sfconservancy.org/feeds/blog/>.
+@prefix n0: <https://feeds.arstechnica.com/arstechnica/>.
+@prefix ne: <https://www.techradar.com/rss/news/>.
+@prefix fee0: <https://fair.org/feed/>.
+@prefix fee1: <https://www.juancole.com/feed/>.
+@prefix fee2: <https://blackamericaweb.com/category/news/feed/>.
+@prefix int: <https://inthesetimes.com/>.
+@prefix pro: <http://feeds.propublica.org/propublica/>.
+@prefix fee3: <https://globalvoices.org/feed/>.
+@prefix skos: <http://www.w3.org/2004/02/skos/core#>.
+
+:GeneralNews
+  a skos:Concept, ui:FeedTopic; 
+  ui:label "General News".
+
+:NewsIntro
+  a ui:Markdown;
+  ui:content """
+## News Feeds
+
+This reader for RSS/Atom feeds comes with a pre-selected list of sources which you may love or hate.  You can change them in the 
+
+  """.
+
+:NewsReaderApp
+    a ui:App;
+    ui:label "News Reader";
+    ui:comment "A customizable RSS/Atom Feed Reader for Solid";
+    ui:editingForm <news-form.ttl>;
+    ui:startingContent :NewsIntro;
+    ui:startingMenu :News.
+
+:News
+    a skos:OrderedCollection, ui:FeedList;
+    skos:memberList
+            (
+                    [
+                        a skos:Concept, ui:Feed;
+                        skos:broader :ScienceNews;
+                        ui:href l:;
+                        ui:label "Smithsonian"
+                    ]
+                    [
+                        a skos:Concept, ui:Feed;
+                        skos:broader :ScienceNews;
+                        ui:href rs:ScientificAmerican-Global;
+                        ui:label "Scientific American"@en
+                    ]
+                    [
+                        a skos:Concept, ui:Feed;
+                        skos:broader :ScienceNews;
+                        ui:href feeds:all;
+                        ui:label "Live Science"@en
+                    ]
+                    [
+                        a skos:Concept, ui:Feed;
+                        skos:broader :ScienceNews;
+                        ui:href fee:scitechdaily;
+                        ui:label "SciTech Daily"@en
+                    ]
+                    [
+                        a skos:Concept, ui:Feed;
+                        skos:broader :ScienceNews;
+                        ui:href feed:;
+                        ui:label "State of the Planet Blog"
+                    ]
+                    [
+                        a skos:Concept, ui:Feed;
+                        skos:broader :ScienceNews;
+                        ui:href r:current;
+                        ui:label "Nature Communications"@en
+                    ]
+                    [
+                        a skos:Concept, ui:Feed;
+                        skos:broader :TechNews;
+                        ui:href fe:thenextweb;
+                        ui:label "The Next Web"@en
+                    ]
+                    [
+                        a skos:Concept, ui:Feed;
+                        skos:broader :TechNews;
+                        ui:href f:rss;
+                        ui:label "Wired"@en
+                    ]
+                    [
+                        a skos:Concept, ui:Feed;
+                        skos:broader :TechNews;
+                        ui:href <https://www.engadget.com/rss.xml>;
+                        ui:label "Engadget"@en
+                    ]
+                    [
+                        a skos:Concept, ui:Feed;
+                        skos:broader :TechNews;
+                        ui:href blog:;
+                        ui:label "Software Freedom Conservancy"@en
+                    ]
+                    [
+                        a skos:Concept, ui:Feed;
+                        skos:broader :TechNews;
+                        ui:href new:rss;
+                        ui:label "Hacker News"@en
+                    ]
+                    [
+                        a skos:Concept, ui:Feed;
+                        skos:broader :TechNews;
+                        ui:href <https://www.theverge.com/rss/index.xml>;
+                        ui:label "The Verge"@en
+                    ]
+                    [
+                        a skos:Concept, ui:Feed;
+                        skos:broader :TechNews;
+                        ui:href n0:index;
+                        ui:label "Ars Technica"@en
+                    ]
+                    [
+                        a skos:Concept, ui:Feed;
+                        skos:broader :TechNews;
+                        ui:href ne:computing;
+                        ui:label "Tech Radar"@en
+                    ]
+                    [
+                        a skos:Concept, ui:Feed;
+                        skos:broader :TechNews;
+                        ui:href <https://www.techmeme.com/feed.xml>;
+                        ui:label "Techmeme"@en
+                    ]
+                    [
+                        a skos:Concept, ui:Feed;
+                        skos:broader :GeneralNews;
+                        ui:href
+                            <https://api.opb.arcpublishing.com/feeds/rss/?website=opb>;
+                        ui:label "Oregon Public Broadcasting"@en
+                    ]
+                    [
+                        a skos:Concept, ui:Feed;
+                        skos:broader :GeneralNews;
+                        ui:href <https://www.truth-out.org/feed?format=feed>;
+                        ui:label "Truthout"@en
+                    ]
+                    [
+                        a skos:Concept, ui:Feed;
+                        skos:broader :GeneralNews;
+                        ui:href <https://theintercept.com/feed/?lang=en>;
+                        ui:label "The Intercept"@en
+                    ]
+                    [
+                        a skos:Concept, ui:Feed;
+                        skos:broader :GeneralNews;
+                        ui:href fee0:;
+                        ui:label "Counterspin"@en
+                    ]
+                    [
+                        a skos:Concept, ui:Feed;
+                        skos:broader :GeneralNews;
+                        ui:href <https://www.democracynow.org/democracynow.rss>;
+                        ui:label "Democracy Now"@en
+                    ]
+                    [
+                        a skos:Concept, ui:Feed;
+                        skos:broader :GeneralNews;
+                        ui:href fee1:atom;
+                        ui:label "Informed Comment"@en
+                    ]
+                    [
+                        a skos:Concept, ui:Feed;
+                        skos:broader :GeneralNews;
+                        ui:href fee2:;
+                        ui:label "Black America Web"@en
+                    ]
+                    [
+                        a skos:Concept, ui:Feed;
+                        skos:broader :GeneralNews;
+                        ui:href int:rss;
+                        ui:label "In These Times"@en
+                    ]
+                    [
+                        a skos:Concept, ui:Feed;
+                        skos:broader :GeneralNews;
+                        ui:href <https://www.vox.com/rss/index.xml>;
+                        ui:label "Vox"@en
+                    ]
+                    [
+                        a skos:Concept, ui:Feed;
+                        skos:broader :GeneralNews;
+                        ui:href pro:main;
+                        ui:label "ProPublica"@en
+                    ]
+                    [
+                        a skos:Concept, ui:Feed;
+                        skos:broader :GeneralNews;
+                        ui:href <http://rss.cnn.com/rss/edition.rss>;
+                        ui:label "CNN"@en
+                    ]
+                    [
+                        a skos:Concept, ui:Feed;
+                        skos:broader :GeneralNews;
+                        ui:href
+                            <https://news.un.org/feed/subscribe/en/news/all/rss.xml>;
+                        ui:label "UN News"@en
+                    ]
+                    [
+                        a skos:Concept, ui:Feed;
+                        skos:broader :GeneralNews;
+                        ui:href
+                            <https://rss.nytimes.com/services/xml/rss/nyt/World.xml>;
+                        ui:label "NY Times"@en
+                    ]
+                    [
+                        a skos:Concept, ui:Feed;
+                        skos:broader :GeneralNews;
+                        ui:href fee3:;
+                        ui:label "Global Voices"@en
+                    ]
+            );
+    ui:label "News".
+:ScienceNews a skos:Concept, ui:FeedTopic; ui:label "Science News".
+
+:TechNews a skos:Concept, ui:FeedTopic; ui:label "Tech News".
+

@@ -1,0 +1,139 @@
+<html>
+<head>
+
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.4/css/bootstrap.min.css" integrity="sha384-2hfp1SzUoho7/TsGGGDaFdsuuDL0LX2hnUp6VkX3CUQ2K4K+xjboZdsXyp4oUHZj" crossorigin="anonymous">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.0.0/jquery.min.js" integrity="sha384-THPy051/pYDQGanwU6poAc/hOdQxjnOEXzbT+OuUAFqNqFjL+4IGLBgCJC3ZOShY" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.2.0/js/tether.min.js" integrity="sha384-Plbmg8JY28KFelvJVai01l8WyZzrYWG825m+cZ0eDDS1f7d/js6ikvy1+X+guPIB" crossorigin="anonymous"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.4/js/bootstrap.min.js" integrity="sha384-VjEeINv9OSwtWFLAtmc4JCtEJXXBub00gtSnszmspDLCtC0I4z4nqz7rEFbIZLLU" crossorigin="anonymous"></script>
+  <title>Group URI Test</title>
+
+  <style>
+  body {
+    padding-top: 5rem;
+  }
+  .starter-template {
+    padding: 3rem 1.5rem;
+    text-align: center;
+  }
+  </style>
+
+</head>
+<body>
+
+  <nav style="background-color: #e3f2fd;" class="navbar navbar-fixed-top navbar-light">
+    <ul class="nav navbar-nav">
+      <li class="nav-item active">
+        <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="#">About</a>
+      </li>
+    </ul>
+    <form class="form-inline pull-xs-right">
+      <button id="login" class="btn btn-outline-success" type="submit">Login</button>
+    </form>
+  </nav>
+
+
+  <div class="container">
+    <div class="card text-xs-center">
+      <div class="card-header">
+        Welcome to Solid Pad
+      </div>
+      <div class="card-block">
+        <h4 class="card-title">Enter Two WebIDs</h4>
+
+        <form method="">
+          <input id="webid1" type="input" name="sb" placeholder="First WebID">
+          <br>
+          <input id="webid2" type="input" name="sb" placeholder="Second WebID">
+          <br>
+          <br>
+          <a href="#" id="start" class="btn btn-primary">Start Pad</a>
+        </form>
+
+        <p class="card-text">Fork me on <a href="https://github.com/melvincarvalho/groupuris">Github</a></p>
+      </div>
+      <div class="card-footer text-muted">
+        Powered By Solid
+      </div>
+    </div>
+
+  </div>
+
+</body>
+<script src="dist/groupuris.js"></script>
+<script src="https://solid.github.io/releases/rdflib.js/rdflib-0.7.0.min.js"></script>
+
+<script>
+
+
+
+function startConference() {
+  console.log('clicked')
+  var webid1 = document.getElementsByTagName('input')[0].value
+  var webid2 = document.getElementById('webid2').value
+  var agents = [webid1, webid2]
+  console.log(agents)
+
+  var groupuris = require('groupuris')
+
+  var turtle = groupuris.agentsToGroup(agents)
+  var hash = groupuris.toSha256Base64url(turtle)
+
+  var baseURI = 'https://extensions.standardnotes.org/collab/doc/' + hash + '#key=d4068e9c77f65a2bba2433a82c7b6630d74792b10192d32ac3dbb8d282f60f88'
+  var confURI = baseURI + hash
+  console.log(confURI)
+
+  setTimeout(function(){
+    window.location = confURI
+  }, 500)
+
+  return false
+}
+
+$.ajax({
+  type: "GET",
+  url: 'https://melvin.databox.me/profile/card',
+  success: function(data, status, xhr) {
+    var user = xhr.getResponseHeader('User')
+    if (user) {
+
+      document.getElementsByTagName('input')[0].value = user
+      document.getElementsByTagName('input')[1].focus()
+      console.log(user)
+      var g = $rdf.graph()
+      var fetcher = $rdf.fetcher(g)
+      var PROXY      = "https://data.fm/proxy?uri={uri}"
+      $rdf.Fetcher.crossSiteProxyTemplate=PROXY
+
+      var FOAF = $rdf.Namespace("http://xmlns.com/foaf/0.1/")
+      fetcher.nowOrWhenFetched(user.split('#')[0], undefined, function() {
+        var knows = g.statementsMatching($rdf.sym(user), FOAF('knows'), undefined)
+        console.log(knows)
+        if (knows && knows.length) {
+
+          var select = '<select id="webid2" name="webid2">'
+
+          for (var i = 0; i < knows.length; i++) {
+            var know = knows[i]
+            var friend = know.object.uri
+            select += '<option value="' + friend + '">' + friend + '</option>'
+          }
+          select += '</select>'
+          console.log(select)
+
+          $("#webid2").replaceWith(select)
+
+        }
+      })
+
+    }
+  }
+})
+
+document.getElementsByTagName('input')[0].focus()
+document.getElementById('start').onclick = startConference
+
+</script>
+</html>

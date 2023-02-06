@@ -1,0 +1,9 @@
+{
+	"Conf":"8888",
+	"Port":"8443",
+	"Debug":false,
+	"Logfile": "/var/log/helix.log",
+	"Root":".",
+	"Cert":"test_cert.pem",
+	"Key":"test_key.pem"
+}

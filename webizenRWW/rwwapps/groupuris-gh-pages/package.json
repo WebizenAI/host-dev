@@ -1,0 +1,48 @@
+{
+  "name": "groupuris",
+  "version": "0.1.21",
+  "description": "Create Group URIs",
+  "main": "index.js",
+  "scripts": {
+    "test": "mocha",
+    "build-browserified": "browserify -r ./index.js:groupuris > dist/groupuris.js",
+    "build": "npm run clean && mkdir -p dist && npm run standard && npm run build-browserified",
+    "clean": "rm -rf dist/",
+    "standard": "standard lib/*"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/melvincarvalho/groupuris.git"
+  },
+  "keywords": [
+    "group",
+    "uris",
+    "rdf",
+    "solid"
+  ],
+  "author": "Melvin Carvalho <melvincarvalho@gmail.com> (https://melvincarvalho.com/#me)",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/melvincarvalho/groupuris/issues"
+  },
+  "bin": {
+    "groupuris": "./bin/groupuris.js"
+  },
+  "homepage": "https://github.com/melvincarvalho/groupuris#readme",
+  "dependencies": {
+    "base64-js": "^1.2.0",
+    "base64-url": "^2.3.2",
+    "browserify": "^13.1.0",
+    "commander": "^2.9.0",
+    "crypto-js": "^3.1.7",
+    "debug": "^2.2.0",
+    "hex64": "^0.4.0",
+    "ieee754": "^1.1.8",
+    "is-array": "^1.0.1",
+    "ms": "^0.7.1"
+  },
+  "devDependencies": {
+    "chai": "^3.5.0",
+    "mocha": "^3.1.2"
+  }
+}

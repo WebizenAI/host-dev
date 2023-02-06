@@ -1,0 +1,20 @@
+# IGNORE GENERATED BINARIES
+main
+gpanel
+
+# IGNORE ALL BUNDLES
+bundles/*
+!bundles/README.md
+
+# IGNORE ALL FILES IN /LOG EXCEPT README
+**/logs/*
+!**/logs/README.md
+
+# IGNORE .DB FILES
+**.db
+
+# IGNORE OSX FINDER FILES
+**.DS_Store
+
+# IGNORE GOLAND IDE DIRECTORY
+.idea/

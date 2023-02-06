@@ -1,0 +1,15 @@
+{
+    "owners": [
+        "https://localhost:8443/profile/card#me"
+    ],
+    "title": "Plume (theWebalyst)",
+    "tagline": "Light as a feather",
+    "picture": "img/logo.svg",
+    "fadeText": true,
+    "showSources": true,
+    "cacheUnit": "days",
+    "defaultPath": "public/posts",
+    "postsURL": "https://localhost:8443/public/posts/",
+    "postsElement": ".posts",
+    "loadInBg": true
+}

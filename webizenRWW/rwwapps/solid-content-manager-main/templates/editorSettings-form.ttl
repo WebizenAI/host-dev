@@ -1,0 +1,27 @@
+@prefix : <#>.
+@prefix ui: <http://www.w3.org/ns/ui#>.
+
+:this
+  a ui:Form;
+  ui:formSubject <../ui/settings.ttl#Settings>;
+  ui:parts( :H1 :H2 :H3 :H4 :MenuItems ).
+
+:ScreenWidth
+  a ui:IntegerField;
+  ui:property 
+
+
+:Settings
+  a ui:Configuration;
+  ui:screenWidth 640;
+  ui:screenHeight 480;
+  ui:documentRoot "/home/jeff/";
+  ui:editorKeyMode "emacs";
+  ui:editorSize 21;
+  ui:darkMode true;
+  ui:port 3101.
+
+  
+
+
+

@@ -1,0 +1,552 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>gPanel Account</title>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css" integrity="sha384-PsH8R72JQ3SOdhVi3uxftmaW6Vc51MKb0q5P2rRUpPvrszuE4W1povHYgTpBfshb" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link type="text/css" rel="stylesheet" href="assets/css/style.css">
+  </head>
+  <body>
+    <nav class="navbar navbar-expand-md navbar-light mb-4">
+      <a class="navbar-brand text-primary" href="#">gPanel Account</a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarCollapse">
+        <form id="searchForm" method="POST" action="#" class="form-inline mt-2 mt-md-0 ml-auto">
+          <input class="form-control mr-sm-2" type="text" placeholder="Search" aria-label="Search">
+          <button class="btn btn-outline-primary my-2 my-sm-0" type="submit">Search</button>
+        </form>
+        <form id="logoutForm" method="POST" action="api/user/logout" class="form-inline mt-2 mt-md-0 ml-3">
+          <button class="btn btn-primary my-2 my-sm-0" type="submit">Logout</button>
+        </form>
+      </div>
+    </nav>
+
+    <!-- View/Clear Log Modal -->
+    <div class="modal fade view-log-modal" tabindex="-1" role="dialog" aria-labelledby="view-log-modal" aria-hidden="true">
+      <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title"></h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <textarea class="w-100" rows="15" readonly></textarea>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            <button type="button" class="btn btn-danger _js_log-clear" data="">Clear Log</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- IP Filtering Modal -->
+    <div class="modal fade ip-filter-modal" tabindex="-1" role="dialog" aria-labelledby="ip-filter-modal" aria-hidden="true">
+      <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title"></h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <form class="_js_ip-filter-form" action="api/ip/filter" method="POST">
+              <div class="form-group">
+                <label for="ip">Filter IP</label>
+                <input name="ip" type="text" class="form-control" id="ip" aria-describedby="filterIPHelp" placeholder="127.0.0.1">
+                <small id="filterIPHelp" class="form-text text-muted"></small>
+              </div>
+              <input type="hidden" name="type" value="">
+              <button type="submit" class="btn btn-primary">Filter IP</button>
+            </form>
+
+            <h4 class="mt-3">Currently Filtered IPs</h4>
+            <h6 class="mt-1">Click on a filtered IP to delete it.</h6>
+            <ul class="_js_currently-filtered-ips"></ul>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- User Management Modal -->
+    <div class="modal fade user-management-modal" tabindex="-1" role="dialog" aria-labelledby="user-management-modal" aria-hidden="true">
+      <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title">Manage Server Users</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <h4>Add User</h4>
+            <form class="_js_add-user-form" action="api/user/register" method="POST">
+              <div class="form-group">
+                <label class="sr-only" for="addUserUsername">Username</label>
+                <div class="input-group mb-2">
+                  <div class="input-group-addon"><i class="fa fa-user" aria-hidden="true"></i></div>
+                  <input name="user" type="text" class="form-control" id="addUserUsername" placeholder="Username">
+                </div>
+              </div>
+              <div class="form-group">
+                <label class="sr-only" for="addUserPassword">Password</label>
+                <div class="input-group">
+                  <div class="input-group-addon"><i class="fa fa-key" aria-hidden="true"></i></div>
+                  <input name="pass" type="password" class="form-control" id="addUserPassword" placeholder="Password">
+                </div>
+              </div>
+              <div class="form-group">
+                <label class="sr-only" for="addUserPasswordRetype">Re-type Password</label>
+                <div class="input-group">
+                  <div class="input-group-addon"><i class="fa fa-key" aria-hidden="true"></i></div>
+                  <input name="pass" type="password" class="form-control" id="addUserPasswordRetype" placeholder="Re-type Password">
+                </div>
+              </div>
+              <div class="form-check">
+                <label class="form-check-label">
+                  <input type="checkbox" class="form-check-input _js_user-management-show-password">
+                  Show Password
+                </label>
+              </div>
+              <div class="btn-group" role="group">
+                <button type="submit" class="btn btn-primary">Add User</button>
+                <button type="button" class="btn btn-success _js_add-user-generate-password">Generate Strong Password</button>
+              </div>
+            </form>
+
+            <h4 class="mt-3 mb-0">Current Users</h4>
+            <div class="container-full _js_current-users">
+
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- New Pass Modal -->
+    <div class="modal fade new-pass-modal" tabindex="-1" role="dialog" aria-labelledby="new-pass-modal" aria-hidden="true">
+      <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title"></h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <form class="_js_update-password-form" action="api/user/update_password" method="UPDATE">
+              <div class="form-group">
+                <label class="sr-only" for="updatePassword">New Password</label>
+                <div class="input-group">
+                  <div class="input-group-addon"><i class="fa fa-key" aria-hidden="true"></i></div>
+                  <input name="pass" type="password" class="form-control" id="updatePassword" placeholder="Password">
+                </div>
+              </div>
+              <div class="form-group">
+                <label class="sr-only" for="updatePasswordRetype">Re-type New Password</label>
+                <div class="input-group">
+                  <div class="input-group-addon"><i class="fa fa-key" aria-hidden="true"></i></div>
+                  <input name="pass" type="password" class="form-control" id="updatePasswordRetype" placeholder="Re-type Password">
+                </div>
+              </div>
+              <div class="form-check">
+                <label class="form-check-label">
+                  <input type="checkbox" class="form-check-input _js_update-password-show-password">
+                  Show Password
+                </label>
+              </div>
+              <div class="btn-group" role="group">
+                <button type="submit" class="btn btn-primary">Update Password</button>
+                <button type="button" class="btn btn-success _js_update-password-generate-password">Generate Strong Password</button>
+              </div>
+              <input type="hidden" value="" id="updatePasswordUsername">
+            </form>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            <button type="button" class="btn btn-warning _js_back-to-user-management">Back to User Mangement</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Domain Management Modal -->
+    <div class="modal fade domain-management-modal" tabindex="-1" role="dialog" aria-labelledby="domain-management-modal" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Domain Management</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form method="POST" action="api/domain/link" class="_js_link-domain-form">
+                        <div class="form-group">
+                            <label for="linkDomain" class="sr-only">Register Domain</label>
+                            <div class="input-group">
+                                <input type="text" id="linkDomain" class="form-control" placeholder="Domain">
+                            </div>
+                        </div>
+                        <div class="btn-group" role="group">
+                            <button type="submit" class="btn btn-primary">Register Domain</button>
+                        </div>
+                    </form>
+                    <h4 class="mt-3 mb-0">Registered Domains</h4>
+                    <small>Please allow up to 15 minutes for the server to track your domain.</small>
+                    <div class="container-full _js_registered-domains">
+
+                    </div>
+
+                    <h4 class="mt-3 mb-0">Server Nameservers</h4>
+                    <small>Point your domains to one of these nameservers.</small>
+                    <div class="container-full _js_server-nameservers">
+
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- SSH Management Modal -->
+    <div class="modal fade manage-ssh-modal" tabindex="-1" role="dialog" aria-labelledby="manage-ssh-modal" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">SSH Management</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                  <h4>Add Public Key to Authorized Keys for this Account</h4>
+                  <form method="UPDATE" action="api/ssh/addkey" class="_js_add-key-form">
+                      <div class="form-group">
+                          <label for="addKey" class="sr-only">Public Key</label>
+                          <div class="input-group">
+                              <input type="text" id="addKey" class="form-control" placeholder="ssh-rsa ...">
+                          </div>
+                      </div>
+                      <div class="btn-group" role="group">
+                          <button type="submit" class="btn btn-primary">Authorize Public Key</button>
+                      </div>
+                  </form>
+
+                  <div id="accordionSSH" role="tablist" class="mt-4 mb-4">
+                    <div class="card">
+                      <div class="card-header" role="tab" id="headingOne">
+                        <h5 class="mb-0">
+                          <a data-toggle="collapse" href="#collapseOne" role="button" aria-expanded="true" aria-controls="collapseOne">
+                          How to Generate an SSH Key-Pair
+                          </a>
+                        </h5>
+                      </div>
+                      <div id="collapseOne" class="collapse" role="tabpanel" aria-labelledby="headingOne" data-parent="#accordionSSH">
+                        <div class="card-body">
+                          <ol>
+                            <li>Linux/OSX</li>
+                            <ol>
+                              <li>Open terminal</li>
+                              <li>Run the command: ssh-keygen -t rsa</li>
+                              <li>Answer the prompts (pressing enter without any input uses default values)</li>
+                            </ol>
+                            <li>Windows</li>
+                            <ol>
+                              <li>NEED TO FIGURE THIS OUT USING PuTTYgen</li>
+                            </ol>
+                          </ol>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="card">
+                      <div class="card-header" role="tab" id="headingTwo">
+                        <h5 class="mb-0">
+                          <a class="collapsed" data-toggle="collapse" href="#collapseTwo" role="button" aria-expanded="false" aria-controls="collapseTwo">
+                          How to Retrieve a Generated Public Key
+                          </a>
+                        </h5>
+                      </div>
+                      <div id="collapseTwo" class="collapse" role="tabpanel" aria-labelledby="headingTwo" data-parent="#accordionSSH">
+                        <div class="card-body">
+                          <ol>
+                            <li>Linux</li>
+                            <ol>
+                              <li>Open terminal</li>
+                              <li>Run the command: cat ~/.ssh/id_rsa.pub</li>
+                              <li>Manually copy the key and paste it into the input field</li>
+                            </ol>
+                            <li>OSX</li>
+                            <ol>
+                              <li>Open terminal</li>
+                              <li>Run the command: pbcopy ~/.ssh/id_rsa.pub</li>
+                              <li>Paste the contents into the input field</li>
+                            </ol>
+                            <li>Windows</li>
+                            <ol>
+                              <li>NEED TO FIGURE THIS OUT USING PuTTYgen</li>
+                            </ol>
+                          </ol>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="card">
+                      <div class="card-header" role="tab" id="headingThree">
+                        <h5 class="mb-0">
+                          <a class="collapsed" data-toggle="collapse" href="#collapseThree" role="button" aria-expanded="false" aria-controls="collapseThree">
+                          How to Access the Server
+                          </a>
+                        </h5>
+                      </div>
+                      <div id="collapseThree" class="collapse" role="tabpanel" aria-labelledby="headingThree" data-parent="#accordionSSH">
+                        <div class="card-body">
+                          <ol>
+                            <li>Linux/OSX</li>
+                            <ol>
+                              <li>Open terminal</li>
+                              <li>Run the command: ssh account_name@server_name</li>
+                            </ol>
+                            <li>Windows</li>
+                            <ol>
+                              <li>Download <a href="http://www.putty.org/" target="_blank">PuTTY</a></li>
+                              <li>Open PuTTY</li>
+                              <li>NEEDS REVISION: Input your account name in the username input field</li>
+                              <li>NEEDS REVISION: Input the server address in the server address field</li>
+                              <li>NEEDS REVISION: Go to the SSH tab on the side</li>
+                              <li>NEEDS REVISION: Input your private key</li>
+                              <li>NEEDS REVISION: Click connect</li>
+                            </ol>
+                          </ol>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <h4>Current Authorized Keys</h4>
+                  <div class="_js_current-authorized-keys"></div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Sub-domain Management Modal -->
+    <div class="modal fade subdomain-management-modal" tabindex="-1" role="dialog" aria-labelledby="subdomain-management-modal" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Sub-domain Management</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <h4>Add Sub-domain</h4>
+                    <form method="POST" action="api/subdomain/add" class="_js_add-subdomain-form">
+                        <div class="form-group">
+                            <label for="addSubdomain" class="">Sub-domain</label>
+                            <div class="input-group">
+                                <input type="text" id="addSubdomain" class="form-control" placeholder="Sub-domain">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="subdomainRoot" class="">Sub-domain Root</label>
+                            <div class="input-group">
+                                <input type="text" id="subdomainRoot" aria-describedby="subdomainRootHelp" class="form-control" placeholder="Sub-domain Root">
+                            </div>
+                            <small id="subdomainRootHelp" class="form-text text-muted">A directory within your /home/document_root/ to serve as the root for this sub-domain</small>
+                        </div>
+                        <div class="btn-group" role="group">
+                            <button type="submit" class="btn btn-primary">Add Sub-domain</button>
+                        </div>
+                    </form>
+                    <h4 class="mt-3 mb-0">Registered Sub-domains</h4>
+                    <div class="container-full _js_registered-subdomains">
+
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="container">
+      <div class="row">
+        <div class="col-12">
+          <div class="card">
+            <div class="card-body">
+              <h4 class="card-title">Public Server</h4>
+              <h6 class="card-subtitle mb-4 text-muted">Handle operations for the public serving server</h6>
+              <div class="btn-group" role="group">
+                <button type="button" class="_js_public-server-start btn btn-outline-primary">Start</button>
+                <button type="button" class="_js_public-server-maintenance-mode btn btn-outline-primary">Maintenance Mode</button>
+                <div class="btn-group" role="group">
+                  <button class="btn btn-outline-primary dropdown-toggle" type="button" id="shutdownDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    Shutdown
+                  </button>
+                  <div class="dropdown-menu" aria-labelledby="shutdownDropdown">
+                    <a class="dropdown-item _js_public-server-shutdown-graceful" href="#graceful_shutdown">Graceful</a>
+                    <a class="dropdown-item _js_public-server-shutdown-forceful" href="#forceful_shutdown">Forceful</a>
+                  </div>
+                </div>
+                <div class="btn-group" role="group">
+                  <button class="btn btn-outline-primary dropdown-toggle" type="button" id="ipFilterDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    Restart
+                  </button>
+                  <div class="dropdown-menu" aria-labelledby="ipFilterDropdown">
+                    <a class="dropdown-item _js_public-server-restart-graceful" href="#graceful_restart">Graceful</a>
+                    <a class="dropdown-item _js_public-server-restart-forceful" href="#forceful_restart">Forceful</a>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="card-footer text-muted text-center">
+              Server Status: <span class="_js_public-server-status text-muted">LOADING</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="row mt-5">
+        <div class="col-12">
+          <div class="card">
+            <div class="card-body">
+              <h4 class="card-title">Logs</h4>
+              <h6 class="card-subtitle mb-4 text-muted">View various public and account data logs that may help pinpoint issues</h6>
+              <div class="btn-group" role="group">
+                <button type="button" class="btn btn-outline-primary _js_log-view" data="public_errors">Public Errors</button>
+                <button type="button" class="btn btn-outline-primary _js_log-view" data="account_errors">Account Errors</button>
+                <button type="button" class="btn btn-outline-primary _js_log-view" data="public_load_time">Public Load Time</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="row mt-5">
+        <div class="col-12">
+          <div class="card">
+            <div class="card-body">
+              <h4 class="card-title">Security</h4>
+              <h6 class="card-subtitle mb-4 text-muted">Operations concerning security of the public site</h6>
+              <div class="btn-group" role="group">
+                <div class="btn-group" role="group">
+                  <button class="btn btn-outline-primary dropdown-toggle" type="button" id="ipFilterDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    IP Filtering
+                  </button>
+                  <div class="dropdown-menu" aria-labelledby="ipFilterDropdown">
+                    <a class="dropdown-item _js_ip-filtering-open" href="#block_ip_filter" data="block">Block</a>
+                    <a class="dropdown-item _js_ip-filtering-open" href="#maintenance_ip_filter" data="maintenance">Maintenance</a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="row mt-5">
+        <div class="col-12">
+          <div class="card">
+            <div class="card-body">
+              <h4 class="card-title">Account Users</h4>
+              <h6 class="card-subtitle mb-4 text-muted">View, edit, update, and remove users that can access the gPanel Account and utilize SSH.</h6>
+              <div class="btn-group" role="group">
+                <button type="button" class="btn btn-outline-primary _js_manage-users">Manage Users</button>
+                <button type="button" class="btn btn-outline-primary _js_manage-ssh">Manage SSH</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+        <div class="row mt-5 pb-3">
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-body">
+                        <h4 class="card-title">Domains & Sub-domains</h4>
+                        <h6 class="card-subtitle mb-4 text-muted">View registered domains, register new domains, and set up or manage existing document roots for sub-domains.</h6>
+                        <div class="btn-group" role="group">
+                            <button type="button" class="btn btn-outline-primary _js_domain-management">Domain Management</button>
+                            <button type="button" class="btn btn-outline-primary _js_subdomain-management">Sub-domain Management</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <footer class="sticky-footer">
+      <div class="container">
+        <div class="row no-gutters">
+          <div class="col-md-6 col-12">
+            <p class="text-muted m-0">Managed by <a target="_blank" href="http://kentonh.github.io/">gPanel</a></p>
+          </div>
+          <div class="col-md-6 col-12 d-flex justify-content-center justify-content-md-end">
+            <p class="text-muted m-0">Contribute on <a target="_blank" href="https://github.com/kentonh/gPanel">Github <i class="fa fa-github" aria-hidden="true"></i></a></p>
+          </div>
+        </div>
+      </div>
+    </footer>
+
+    <!-- KEEP AT BOTTOM OF BODY TAGS -->
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js" integrity="sha384-vFJXuSJphROIrBnz7yo7oB41mKfc8JzQZiCq4NCceLEaO4IHwicKwpJf9c9IpFgh" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js" integrity="sha384-alpBpkh1PFOepccYVYDB4do5UnbKysX5WZXm3XxPqe5iKTfUKjNkCk9SaVuEZflJ" crossorigin="anonymous"></script>
+
+    <script type="text/javascript" src="assets/js/init.js"></script>
+
+    <script type="text/javascript" src="assets/js/formHandlers/search.js"></script>
+    <script type="text/javascript" src="assets/js/formHandlers/logout.js"></script>
+
+    <script type="text/javascript" src="assets/js/panelHandlers/publicServer/status.js"></script>
+    <script type="text/javascript" src="assets/js/panelHandlers/publicServer/maintenance.js"></script>
+    <script type="text/javascript" src="assets/js/panelHandlers/publicServer/start.js"></script>
+    <script type="text/javascript" src="assets/js/panelHandlers/publicServer/shutdown.js"></script>
+    <script type="text/javascript" src="assets/js/panelHandlers/publicServer/restart.js"></script>
+
+    <script type="text/javascript" src="assets/js/panelHandlers/log/view.js"></script>
+    <script type="text/javascript" src="assets/js/panelHandlers/log/delete.js"></script>
+
+    <script type="text/javascript" src="assets/js/panelHandlers/security/ip_list.js"></script>
+    <script type="text/javascript" src="assets/js/panelHandlers/security/filter_ip.js"></script>
+    <script type="text/javascript" src="assets/js/panelHandlers/security/unfilter_ip.js"></script>
+
+    <script type="text/javascript" src="assets/js/panelHandlers/users/open.js"></script>
+    <script type="text/javascript" src="assets/js/panelHandlers/users/new.js"></script>
+    <script type="text/javascript" src="assets/js/panelHandlers/users/delete.js"></script>
+    <script type="text/javascript" src="assets/js/panelHandlers/users/new_password.js"></script>
+    <script type="text/javascript" src="assets/js/panelHandlers/users/getkeys.js"></script>
+    <script type="text/javascript" src="assets/js/panelHandlers/users/addkey.js"></script>
+    <script type="text/javascript" src="assets/js/panelHandlers/users/deletekey.js"></script>
+
+    <script type="text/javascript" src="assets/js/panelHandlers/domains_subdomains/domain_management.js"></script>
+    <script type="text/javascript" src="assets/js/panelHandlers/domains_subdomains/domain_link.js"></script>
+    <script type="text/javascript" src="assets/js/panelHandlers/domains_subdomains/domain_unlink.js"></script>
+    <script type="text/javascript" src="assets/js/panelHandlers/domains_subdomains/subdomain_management.js"></script>
+    <script type="text/javascript" src="assets/js/panelHandlers/domains_subdomains/subdomain_add.js"></script>
+    <script type="text/javascript" src="assets/js/panelHandlers/domains_subdomains/subdomain_remove.js"></script>
+    <!-- KEEP AT BOTTOM OF BODY TAGS -->
+  </body>
+</html>
