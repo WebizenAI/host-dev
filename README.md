@@ -2,6 +2,10 @@
 
 This is a work in progress.  It is not ready for use. It is not ready for production.  It is not ready for anything.  It is a work in progress.
 
+There are various components which have been dumped into this repo.  There are also a bunch of RWW / Solid related works that are located in the webizenRWW folder.
+
+The purpose of this repo is to provide a bunch of pieces and related works, that are thought to be usefully reviewed by people looking to contribute towards the devleopment of the first webizen implemenation.  It is not intended to be used as a production system.  It is not intended to be used as a development system.  It is not intended to be used as anything.  It is a work in progress.
+
 ## Webizen
 
 This is a set of packages that being developed to be used together to provide a web based server.  It is a work in progress. 
